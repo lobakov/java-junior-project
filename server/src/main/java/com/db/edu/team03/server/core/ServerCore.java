@@ -9,7 +9,7 @@ import java.net.Socket;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
-public class ServerCore implements Server {
+public class ServerCore {
 
     private Handler handler;
 
@@ -35,18 +35,14 @@ public class ServerCore implements Server {
         }
     }
 
-    @Override
     public void sendToUser(String id, String message) {
 
     }
 
-    @Override
     public void sendAll(String message) {
-        haveSmthToWrite=true;
+        haveSmthToWrite = true;
         outputMessage = message;
     }
-
-
 
     private class ClientHandler implements Runnable {
         private final Socket socket;

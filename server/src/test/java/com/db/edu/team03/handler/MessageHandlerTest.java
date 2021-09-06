@@ -1,6 +1,5 @@
 package com.db.edu.team03.handler;
 
-import com.db.edu.team03.server.core.Server;
 import com.db.edu.team03.server.core.ServerCore;
 import com.db.edu.team03.server.exception.ServerException;
 import com.db.edu.team03.server.handler.*;
@@ -12,7 +11,7 @@ import static org.mockito.Mockito.*;
 
 public class MessageHandlerTest {
 
-    private Server serverStub;
+    private ServerCore serverStub;
     private Handler handlerSut;
 
     @BeforeEach
