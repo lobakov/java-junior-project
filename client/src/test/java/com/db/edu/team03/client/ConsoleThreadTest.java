@@ -1,16 +1,11 @@
-import com.db.edu.team03.client.Connection;
-import com.db.edu.team03.client.ConsoleThread;
-import com.db.edu.team03.client.ServerThread;
+package com.db.edu.team03.client;
+
 import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
 
-import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.when;
-
 public class ConsoleThreadTest {
     @Test
     public void shouldNotSendEmptyMessage() throws IOException {
