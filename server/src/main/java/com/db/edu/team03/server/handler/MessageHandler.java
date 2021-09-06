@@ -25,8 +25,9 @@ public class MessageHandler implements Handler {
 
     @Override
     public void accept(String id, String message) {
-        userHandler.accept(id);
-        parse(id, message);
+        System.out.println("id: " + id + ";  " + " message: " + message);
+//        userHandler.accept(id);
+//        parse(id, message);
 
     }
 
