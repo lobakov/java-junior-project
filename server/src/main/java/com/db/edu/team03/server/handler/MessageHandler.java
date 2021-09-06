@@ -27,9 +27,9 @@ public class MessageHandler implements Handler {
     }
 
     @Override
-    public void accept(String id, String message) {
-//        System.out.println("id: " + id + ";  " + " message: " + message);
-//        userHandler.accept(id);
+    public void accept(String id, String message) throws ServerException {
+        System.out.println("id: " + id + ";  " + " message: " + message);
+        userHandler.accept(id);
 //        parse(id, message);
         try {
             if (id == null) throw new NullPointerException("Null user id received");

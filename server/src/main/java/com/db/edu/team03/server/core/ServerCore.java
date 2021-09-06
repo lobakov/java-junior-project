@@ -1,5 +1,6 @@
 package com.db.edu.team03.server.core;
 
+import com.db.edu.team03.server.exception.ServerException;
 import com.db.edu.team03.server.handler.Handler;
 
 import java.io.*;
@@ -10,7 +11,7 @@ import java.util.concurrent.ConcurrentHashMap;
 
 public class ServerCore implements Server {
 
-    private static Handler handler;
+    private Handler handler;
 
     public void setHandler(Handler handler) {
         this.handler = handler;
@@ -41,9 +42,7 @@ public class ServerCore implements Server {
 
     }
 
-
-
-    private static class ClientHandler implements Runnable {
+    private class ClientHandler implements Runnable {
         private final Socket socket;
         private final Map<String, ClientHandler> clients;
 
@@ -69,7 +68,7 @@ public class ServerCore implements Server {
                     handler.accept(address,message);
                 }
 
-            } catch (IOException e) {
+            } catch (IOException | ServerException e) {
                 e.printStackTrace(System.err);
             }
         }
