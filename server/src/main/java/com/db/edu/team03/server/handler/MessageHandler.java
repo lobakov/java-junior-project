@@ -1,10 +1,13 @@
 package com.db.edu.team03.server.handler;
 
 import com.db.edu.team03.server.core.Server;
+import com.db.edu.team03.server.exception.ServerException;
+import java.time.LocalTime;
 
 public class MessageHandler implements Handler {
 
     private static final String DELIMITER = " ";
+    private static final String WRONG_MESSAGE_FORMAT_ERROR_MESSAGE = "Unknown message received";
     private static final String SERVER_NAME = "Server";
     private static final String SEND = "/snd";
     private static final String CHID = "/chid";
@@ -25,10 +28,21 @@ public class MessageHandler implements Handler {
 
     @Override
     public void accept(String id, String message) {
-        System.out.println("id: " + id + ";  " + " message: " + message);
+//        System.out.println("id: " + id + ";  " + " message: " + message);
 //        userHandler.accept(id);
 //        parse(id, message);
-        System.out.println(message);
+        try {
+            if (id == null) throw new NullPointerException("Null user id received");
+            if (message == null) throw new NullPointerException("Null message received");
+            if (id.isEmpty()) throw new IllegalArgumentException("Empty id received");
+            if (message.isEmpty()) throw new IllegalArgumentException("Empty message received");
+        } catch (NullPointerException npe) {
+            throw new ServerException(npe.getMessage(), npe);
+        } catch (IllegalArgumentException iae) {
+            throw new ServerException(iae.getMessage(), iae);
+        }
+
+        parse(id, message);
     }
 
     private void parse(String id, String message) {
@@ -48,11 +62,13 @@ public class MessageHandler implements Handler {
                 server.sendToUser(id, composeMessage(SERVER_NAME, historyLogger.readHistory()));
                 break;
             default:
+                server.sendToUser(id, WRONG_MESSAGE_FORMAT_ERROR_MESSAGE);
                 break;
         }
     }
 
     private String composeMessage(String id, String message) {
-        return null;
+        String time = LocalTime.now().toString();
+        return "[" + time + "]" + " " + id + ": " + message;
     }
 }
