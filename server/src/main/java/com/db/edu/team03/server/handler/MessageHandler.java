@@ -41,12 +41,12 @@ public class MessageHandler implements Handler {
                 historyLogger.saveHistory(composeMessage(id, message));
                 server.sendAll(composeMessage(id, message));
                 break;
-            case CHID:
+            /*case CHID:
                 userHandler.changeUsername(id, body);
                 break;
             case HIST:
                 server.sendToUser(id, composeMessage(SERVER_NAME, historyLogger.readHistory()));
-                break;
+                break;*/
             default:
                 break;
         }

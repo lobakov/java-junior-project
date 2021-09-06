@@ -10,7 +10,10 @@ import java.util.concurrent.ConcurrentHashMap;
 
 public class ServerCore implements Server {
 
-    private static Handler handler;
+    private Handler handler;
+
+    String outputMessage="";
+    boolean haveSmthToWrite = false;
 
     public void setHandler(Handler handler) {
         this.handler = handler;
@@ -38,12 +41,13 @@ public class ServerCore implements Server {
 
     @Override
     public void sendAll(String message) {
-
+        haveSmthToWrite=true;
+        outputMessage = message;
     }
 
 
 
-    private static class ClientHandler implements Runnable {
+    private class ClientHandler implements Runnable {
         private final Socket socket;
         private final Map<String, ClientHandler> clients;
 
@@ -57,7 +61,6 @@ public class ServerCore implements Server {
         @Override
         public void run() {
             try (
-                    //final Socket connection = listener.accept();
                     final DataInputStream input = new DataInputStream(new BufferedInputStream(socket.getInputStream()));
                     final DataOutputStream output = new DataOutputStream(new BufferedOutputStream(socket.getOutputStream()))
             ) {
@@ -67,6 +70,12 @@ public class ServerCore implements Server {
                 while (true) {
                     final String message = input.readUTF();
                     handler.accept(address,message);
+                    if (haveSmthToWrite)
+                    {
+                        output.writeUTF(outputMessage);
+                        output.flush();
+                        haveSmthToWrite=false;
+                    }
                 }
 
             } catch (IOException e) {
