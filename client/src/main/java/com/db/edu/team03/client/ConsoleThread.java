@@ -7,6 +7,7 @@ import java.io.InputStreamReader;
 public class ConsoleThread extends Thread{
     private final Connection connection;
     private final BufferedReader reader;
+    private static final int MAX_MESSAGE_LENGTH = 150;
 
     public ConsoleThread(Connection connection){
         this.reader = new BufferedReader(new InputStreamReader(System.in));
@@ -19,13 +20,20 @@ public class ConsoleThread extends Thread{
         try{
             while (true) {
                 String message = reader.readLine();
-                if (!message.isEmpty()) {
-                    connection.sendMessage(message); // protocol
-                }
+                send(message);
             }
         }catch (IOException e){
             e.printStackTrace();
         }
 
+    }
+
+    public boolean send(String message) throws IOException {
+        boolean res = false;
+        if (!message.isEmpty() && message.length() < MAX_MESSAGE_LENGTH) {
+            connection.sendMessage(message); // protocol
+            res = true;
+        }
+        return res;
     }
 }
