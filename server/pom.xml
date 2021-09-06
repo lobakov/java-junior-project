@@ -18,19 +18,19 @@
 
     <dependencies>
         <dependency>
-            <groupId>com.db.edu</groupId>
+            <groupId>com.db.edu.team03</groupId>
             <artifactId>network</artifactId>
             <version>1.0-SNAPSHOT</version>
             <scope>compile</scope>
         </dependency>
         <dependency>
-            <groupId>com.db.edu</groupId>
+            <groupId>com.db.edu.team03</groupId>
             <artifactId>data</artifactId>
             <version>1.0-SNAPSHOT</version>
             <scope>compile</scope>
         </dependency>
         <dependency>
-            <groupId>com.db.edu</groupId>
+            <groupId>com.db.edu.team03</groupId>
             <artifactId>util</artifactId>
             <version>1.0-SNAPSHOT</version>
             <scope>compile</scope>
