@@ -8,12 +8,12 @@ import java.io.File;
 public class ServerApplication {
     private static final String DEFAULT_FILENAME = "chat-history.log";
     public static void main(String[] args) {
-
-        ServerCore serverCore = new ServerCore();
+        ServerCore server = new ServerCore();
         UserHandler userHandler = new UserHandler();
         FileHandler fileHandler = new FileHandler(new File(DEFAULT_FILENAME), new FileWriter(), new FileReader());
         HistoryLogger historyLogger = new HistoryLogger(fileHandler);
-        Handler messageHandler = new MessageHandler(serverCore, userHandler, historyLogger);
-        serverCore.listenPort();
+        Handler messageHandler = new MessageHandler(server, userHandler, historyLogger);
+        server.setHandler(messageHandler);
+        server.listenPort();
     }
 }
