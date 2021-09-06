@@ -1,4 +1,4 @@
-package com.db.edu.team03.server;
+package com.db.edu.team03.server.core;
 
 public interface Server {
 

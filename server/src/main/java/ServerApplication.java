@@ -1,14 +1,19 @@
-import com.db.edu.team03.server.handler.Handler;
-import com.db.edu.team03.server.handler.MessageHandler;
-import com.db.edu.team03.server.handler.ServerCore;
+import com.db.edu.team03.server.core.ServerCore;
+import com.db.edu.team03.server.file.FileReader;
+import com.db.edu.team03.server.file.FileWriter;
+import com.db.edu.team03.server.handler.*;
 
-import java.io.*;
-import java.net.ServerSocket;
-import java.net.Socket;
+import java.io.File;
 
 public class ServerApplication {
+    private static final String DEFAULT_FILENAME = "chat-history.log";
     public static void main(String[] args) {
+
         ServerCore serverCore = new ServerCore();
+        UserHandler userHandler = new UserHandler();
+        FileHandler fileHandler = new FileHandler(new File(DEFAULT_FILENAME), new FileWriter(), new FileReader());
+        HistoryLogger historyLogger = new HistoryLogger(fileHandler);
+        Handler messageHandler = new MessageHandler(serverCore, userHandler, historyLogger);
         serverCore.listenPort();
     }
 }

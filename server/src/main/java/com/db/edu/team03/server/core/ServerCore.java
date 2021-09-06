@@ -1,10 +1,19 @@
-package com.db.edu.team03.server.handler;
+package com.db.edu.team03.server.core;
+
+import com.db.edu.team03.server.handler.Handler;
 
 import java.io.*;
 import java.net.ServerSocket;
 import java.net.Socket;
 
-public class ServerCore {
+public class ServerCore implements Server {
+
+    private Handler handler;
+
+    public void setHandler(Handler handler) {
+        this.handler = handler;
+    }
+
     public void listenPort(){
         try (final ServerSocket listener = new ServerSocket(10_000)) {
 
@@ -13,7 +22,7 @@ public class ServerCore {
                     final DataInputStream input = new DataInputStream(new BufferedInputStream(connection.getInputStream()));
                     final DataOutputStream output = new DataOutputStream(new BufferedOutputStream(connection.getOutputStream()))
             ) {
-                final Handler handler = new MessageHandler();
+
                 String IpAddress = connection.getRemoteSocketAddress().toString();
                 String port = Integer.toString(connection.getPort());
                 String address = IpAddress+":"+port;
@@ -29,5 +38,15 @@ public class ServerCore {
         } catch (IOException e) {
             e.printStackTrace(System.err);
         }
+    }
+
+    @Override
+    public void sendToUser(String id, String message) {
+
+    }
+
+    @Override
+    public void sendAll(String message) {
+
     }
 }

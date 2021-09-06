@@ -17,4 +17,9 @@ public class UserHandler extends GenericHandler {
     public void changeUsername(String id, String username) {
         users.put(id, username);
     }
+
+    @Override
+    public void accept(String address, String message) {
+
+    }
 }
