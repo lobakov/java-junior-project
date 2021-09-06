@@ -5,7 +5,7 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>com.db.edu</groupId>
-    <artifactId>java-junior-project</artifactId>
+    <artifactId>team03-java-junior-project</artifactId>
     <packaging>pom</packaging>
     <version>1.0-SNAPSHOT</version>
     <modules>
