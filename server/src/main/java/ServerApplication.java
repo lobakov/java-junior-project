@@ -6,7 +6,7 @@ import java.io.*;
 import java.net.ServerSocket;
 import java.net.Socket;
 
-public class ServerUp {
+public class ServerApplication {
     public static void main(String[] args) {
         ServerCore serverCore = new ServerCore();
         serverCore.listenPort();

@@ -1,4 +1,4 @@
-package com.db.edu.team03.server.File;
+package com.db.edu.team03.server.file;
 
 import java.io.File;
 import java.util.List;

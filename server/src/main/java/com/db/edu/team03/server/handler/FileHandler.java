@@ -1,7 +1,7 @@
 package com.db.edu.team03.server.handler;
 
-import com.db.edu.team03.server.File.FileReader;
-import com.db.edu.team03.server.File.FileWriter;
+import com.db.edu.team03.server.file.FileReader;
+import com.db.edu.team03.server.file.FileWriter;
 
 import java.io.File;
 import java.util.List;
