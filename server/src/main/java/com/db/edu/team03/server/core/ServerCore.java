@@ -24,8 +24,7 @@ public class ServerCore implements Server {
             ) {
 
                 String IpAddress = connection.getRemoteSocketAddress().toString();
-                String port = Integer.toString(connection.getPort());
-                String address = IpAddress+":"+port;
+                String address = IpAddress;
                 while (true) {
                     final String message = input.readUTF();
                     handler.accept(address,message);
