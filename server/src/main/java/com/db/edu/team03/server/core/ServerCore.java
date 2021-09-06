@@ -1,5 +1,6 @@
 package com.db.edu.team03.server.core;
 
+import com.db.edu.team03.server.exception.ServerException;
 import com.db.edu.team03.server.handler.Handler;
 
 import java.io.*;
@@ -78,7 +79,7 @@ public class ServerCore implements Server {
                     }
                 }
 
-            } catch (IOException e) {
+            } catch (IOException | ServerException e) {
                 e.printStackTrace(System.err);
             }
         }
