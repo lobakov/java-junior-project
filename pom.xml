@@ -14,6 +14,7 @@
         <module>shared-util</module>
         <module>shared-network</module>
         <module>client</module>
+        <module>server</module>
     </modules>
 
     <properties>

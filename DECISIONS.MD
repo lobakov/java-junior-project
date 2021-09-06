@@ -40,3 +40,16 @@
 Стуктура данных, в которой будут залогиненные пользователи (Список).
 Пользователь добавляется -> заносим в список
 Пользователь отключается -> удаляем из списка
+
+
+Map<String, Connection> <-  
+user01, user02
+
+/chid ... ->
+newId, connection
+
+//start
+//stop //addShutdown() <- 
+
+MessageHandler .accept(String) <- 
+
