@@ -1,6 +1,5 @@
 package com.db.edu.team03.server.core;
 
-import com.db.edu.team03.server.exception.ServerException;
 import com.db.edu.team03.server.handler.Handler;
 
 import java.io.*;
@@ -12,6 +11,9 @@ import java.util.concurrent.ConcurrentHashMap;
 public class ServerCore implements Server {
 
     private Handler handler;
+
+    String outputMessage="";
+    boolean haveSmthToWrite = false;
 
     public void setHandler(Handler handler) {
         this.handler = handler;
@@ -39,8 +41,11 @@ public class ServerCore implements Server {
 
     @Override
     public void sendAll(String message) {
-
+        haveSmthToWrite=true;
+        outputMessage = message;
     }
+
+
 
     private class ClientHandler implements Runnable {
         private final Socket socket;
@@ -56,7 +61,6 @@ public class ServerCore implements Server {
         @Override
         public void run() {
             try (
-                    //final Socket connection = listener.accept();
                     final DataInputStream input = new DataInputStream(new BufferedInputStream(socket.getInputStream()));
                     final DataOutputStream output = new DataOutputStream(new BufferedOutputStream(socket.getOutputStream()))
             ) {
@@ -66,9 +70,15 @@ public class ServerCore implements Server {
                 while (true) {
                     final String message = input.readUTF();
                     handler.accept(address,message);
+                    if (haveSmthToWrite)
+                    {
+                        output.writeUTF(outputMessage);
+                        output.flush();
+                        haveSmthToWrite=false;
+                    }
                 }
 
-            } catch (IOException | ServerException e) {
+            } catch (IOException e) {
                 e.printStackTrace(System.err);
             }
         }
