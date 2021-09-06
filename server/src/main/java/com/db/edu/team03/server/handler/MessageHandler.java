@@ -28,7 +28,7 @@ public class MessageHandler implements Handler {
         System.out.println("id: " + id + ";  " + " message: " + message);
 //        userHandler.accept(id);
 //        parse(id, message);
-
+        System.out.println(message);
     }
 
     private void parse(String id, String message) {
