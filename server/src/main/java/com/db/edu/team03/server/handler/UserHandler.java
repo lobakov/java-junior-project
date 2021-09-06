@@ -20,6 +20,5 @@ public class UserHandler extends GenericHandler {
 
     @Override
     public void accept(String address, String message) {
-
     }
 }
