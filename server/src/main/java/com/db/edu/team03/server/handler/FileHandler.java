@@ -10,19 +10,17 @@ public class FileHandler {
 
     private final FileReader reader;
     private final FileWriter writer;
-    private File file;
 
-    public FileHandler(File file, FileWriter writer, FileReader reader) {
-        this.writer = writer;
-        this.reader = reader;
-        this.file = file;
+    public FileHandler(File file) {
+        this.writer = new FileWriter(file);
+        this.reader = new FileReader(file);
     }
 
     public List<String> readHistory() {
-        return reader.read(file);
+        return reader.read();
     }
 
     public void write(String message) {
-        writer.write(file, message);
+        writer.write(message);
     }
 }
