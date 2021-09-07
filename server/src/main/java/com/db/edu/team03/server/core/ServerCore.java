@@ -10,11 +10,11 @@ import java.util.concurrent.ConcurrentHashMap;
 
 public class ServerCore {
 
-    private MessageHandler handler;
+    private MessageHandler messageHandler;
     private final Map<String, ClientHandler> clients = new ConcurrentHashMap<>();
 
-    public void setHandler(MessageHandler handler) {
-        this.handler = handler;
+    public void setMessageHandler(MessageHandler messageHandler) {
+        this.messageHandler = messageHandler;
     }
 
     public void listenPort(){
@@ -23,7 +23,7 @@ public class ServerCore {
 
             for (Socket connection = listener.accept(); connection != null; connection = listener.accept()) {
 
-                ClientHandler clientHandler = new ClientHandler(connection, handler);
+                ClientHandler clientHandler = new ClientHandler(connection, messageHandler);
                 clients.put(connection.getRemoteSocketAddress().toString(), clientHandler);
                 new Thread(clientHandler).start();
             }

@@ -9,12 +9,12 @@ import java.net.Socket;
 public class ClientHandler implements Runnable{
     private final Socket socket;
     private DataOutputStream output;
-    private final MessageHandler handler;
+    private final MessageHandler messageHandler;
 
     public ClientHandler(Socket socket, MessageHandler handler) throws IOException {
         this.socket = socket;
         this.output = new DataOutputStream(new BufferedOutputStream(socket.getOutputStream()));
-        this.handler = handler;
+        this.messageHandler = handler;
     }
 
     public DataOutputStream getOutput(){
@@ -30,7 +30,7 @@ public class ClientHandler implements Runnable{
 
             while (true) {
                 final String message = input.readUTF();
-                handler.accept(IpAddress,message);
+                messageHandler.accept(IpAddress,message);
             }
 
         } catch (IOException | ServerException e) {
