@@ -11,19 +11,12 @@ import java.util.List;
  * FileReader handles low-level logic of reading the whole file and present it as a list of string lines.
  */
 public class FileReader {
-    private static Logger logger = LogManager.getLogger(FileReader.class);
 
     private BufferedReader reader;
+    private File file;
 
     public FileReader(File file) {
-        try {
-            this.reader = new BufferedReader(
-                    new InputStreamReader(
-                            new BufferedInputStream(
-                                    new FileInputStream(file)), "windows-1251"));
-        } catch (IOException e) {
-            logger.error(e);
-        }
+        this.file = file;
     }
 
     public List<String> read() {
@@ -31,11 +24,21 @@ public class FileReader {
         String readLine;
 
         try {
+            this.reader = new BufferedReader(
+                    new InputStreamReader(
+                            new BufferedInputStream(
+                                    new FileInputStream(file)), "windows-1251"));
             while ((readLine = this.reader.readLine()) != null) {
                 historyList.add(readLine);
             }
         } catch (IOException e) {
-            logger.error(e);
+            e.printStackTrace();
+        } finally {
+            try {
+                reader.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         }
 
         return historyList;

@@ -9,9 +9,6 @@ import java.net.ServerSocket;
 import java.net.Socket;
 
 public class ServerCore {
-
-    private static Logger logger = LogManager.getLogger(ServerCore.class);
-
     private MessageHandler messageHandler;
     private final ClientHandlerMap clients = new ClientHandlerMap();
 
@@ -30,7 +27,7 @@ public class ServerCore {
                 new Thread(clientHandler).start();
             }
         } catch (IOException e) {
-            logger.error(e);
+            e.printStackTrace();
         }
     }
 
