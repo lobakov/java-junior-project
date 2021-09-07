@@ -7,8 +7,8 @@ public class Connection {
     private DataInputStream input;
     private DataOutputStream output;
 
-    public Connection() throws IOException {
-        final Socket connection = new Socket("localhost", 10_000);
+    public Connection(Socket socket) throws IOException {
+        final Socket connection = socket;
         this.input = new DataInputStream(new BufferedInputStream(connection.getInputStream()));
         this.output = new DataOutputStream(new BufferedOutputStream(connection.getOutputStream()));
     }

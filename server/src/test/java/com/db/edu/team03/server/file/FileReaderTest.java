@@ -1,13 +1,10 @@
 package com.db.edu.team03.server.file;
 
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.*;
 
 import java.io.*;
 import java.util.ArrayList;
-
+@Disabled
 public class FileReaderTest {
     private File file;
 
