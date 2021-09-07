@@ -69,7 +69,7 @@ public class MessageHandler {
             historyLogger.saveHistory(nickChanged);
             server.sendAll(nickChanged);
         } else if (command.equals(Prefix.HIST.value)) {
-            server.sendToUser(address, composeMessage(SERVER_NAME, historyLogger.readHistory()));
+            server.sendToUser(address, historyLogger.readHistory());
         } else if (command.equals(Prefix.CHROOM.value)) {
             /////
             /////
