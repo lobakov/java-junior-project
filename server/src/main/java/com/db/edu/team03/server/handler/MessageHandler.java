@@ -43,7 +43,7 @@ public class MessageHandler {
         if (parsed.length > 1) {
             body = parsed[MESSAGE_INDEX];
         }
-        String id = userHandler.getIdByAddress(address);
+        String id = userHandler.getNameById(address);
 
         if (command.equals(Prefix.SEND.value)) {
             historyLogger.saveHistory(composeMessage(id, body));
