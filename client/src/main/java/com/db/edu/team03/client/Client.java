@@ -15,8 +15,12 @@ public class Client {
             ConsoleThread consoleThread = new ConsoleThread(connection);
             consoleThread.start();
 
+            serverThread.join();
+            consoleThread.join();
         } catch (IOException e) {
             e.printStackTrace(System.err);
+        } catch (InterruptedException e) {
+            System.out.println("Client terminated.");
         }
     }
 }

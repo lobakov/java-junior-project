@@ -12,7 +12,6 @@ import java.net.Socket;
  * ServerCore - class that listens on ports and waits for clients.
  */
 public class ServerCore {
-    private static final Logger logger = LogManager.getLogger(ServerCore.class);
     private static final ClientHandlerMap clients = new ClientHandlerMap();
 
     private MessageHandler messageHandler;
@@ -37,7 +36,7 @@ public class ServerCore {
 
             }
         } catch (IOException e) {
-            logger.error(e);
+            e.printStackTrace();
         }
     }
 
