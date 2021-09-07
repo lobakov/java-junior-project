@@ -13,8 +13,12 @@ public class ServerCore implements Server {
 
     private Handler handler;
 
-    String outputMessage="";
-    boolean haveSmthToWrite = false;
+    String messageToAllClients ="";
+    boolean haveSmthToWriteToAllClients = false;
+
+    String messageToClient = "";
+    boolean haveSmthToWriteToClient = false;
+    String clientIdNeededForMessage = "";
 
     public void setHandler(Handler handler) {
         this.handler = handler;
@@ -37,20 +41,21 @@ public class ServerCore implements Server {
 
     @Override
     public void sendToUser(String id, String message) {
-
+        clientIdNeededForMessage = id;
+        messageToClient = message;
+        haveSmthToWriteToClient = true;
     }
 
     @Override
     public void sendAll(String message) {
-        haveSmthToWrite=true;
-        outputMessage = message;
+        haveSmthToWriteToAllClients =true;
+        messageToAllClients = message;
     }
-
-
 
     private class ClientHandler implements Runnable {
         private final Socket socket;
         private final Map<String, ClientHandler> clients;
+        private DataOutputStream output;
 
         private String clientId;
 
@@ -58,24 +63,38 @@ public class ServerCore implements Server {
                 throws IOException {
             this.socket = socket;
             this.clients = clients;
+            this.output = new DataOutputStream(new BufferedOutputStream(socket.getOutputStream()));
         }
         @Override
         public void run() {
             try (
                     final DataInputStream input = new DataInputStream(new BufferedInputStream(socket.getInputStream()));
-                    final DataOutputStream output = new DataOutputStream(new BufferedOutputStream(socket.getOutputStream()))
             ) {
 
                 String IpAddress = socket.getRemoteSocketAddress().toString();
-                String address = IpAddress;
+                String clientId = IpAddress;
+                clients.put(clientId, this);
                 while (true) {
                     final String message = input.readUTF();
-                    handler.accept(address,message);
-                    if (haveSmthToWrite)
-                    {
-                        output.writeUTF(outputMessage);
-                        output.flush();
-                        haveSmthToWrite=false;
+                    handler.accept(IpAddress,message);
+                    if (haveSmthToWriteToAllClients) {
+                        clients.forEach((k, v) -> {
+                            try {
+                                v.output.writeUTF(messageToAllClients);
+                                v.output.flush();
+                            } catch (IOException e) {
+                                e.printStackTrace();
+                            }
+                        });
+                        haveSmthToWriteToAllClients =false;
+                    }
+                    if (haveSmthToWriteToClient){
+                        if (clients.containsKey(clientIdNeededForMessage)){
+                            ClientHandler client = clients.get(clientIdNeededForMessage);
+                            client.output.writeUTF(messageToClient);
+                            client.output.flush();
+                            haveSmthToWriteToClient = false;
+                        }
                     }
                 }
 
