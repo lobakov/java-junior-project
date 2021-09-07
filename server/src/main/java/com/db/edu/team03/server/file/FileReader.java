@@ -4,6 +4,9 @@ import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * FileReader handles low-level logic of reading the whole file and present it as a list of string lines.
+ */
 public class FileReader {
     private BufferedReader reader;
 
