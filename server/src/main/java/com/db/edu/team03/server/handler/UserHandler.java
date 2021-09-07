@@ -17,7 +17,15 @@ public class UserHandler {
         users.put(id, username);
     }
 
-    public String getIdByAddress(String address) {
+    public String getNameById(String address) {
         return users.get(address);
+    }
+
+    public Map<String, String> getUsers() {
+        return users;
+    }
+
+    public static String getDefaultUsername() {
+        return DEFAULT_USERNAME;
     }
 }
