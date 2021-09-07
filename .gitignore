@@ -11,3 +11,4 @@ javajunior.iml
 .DS_Store
 *.yml
 *.iml
+*.log

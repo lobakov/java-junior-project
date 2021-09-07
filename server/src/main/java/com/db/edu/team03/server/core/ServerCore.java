@@ -1,22 +1,23 @@
 package com.db.edu.team03.server.core;
 
 import com.db.edu.team03.server.exception.ServerException;
-import com.db.edu.team03.server.handler.Handler;
+import com.db.edu.team03.server.handler.MessageHandler;
 
 import java.io.*;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
+import java.util.logging.Handler;
 
 public class ServerCore {
 
-    private Handler handler;
+    private MessageHandler handler;
 
     String outputMessage="";
     boolean haveSmthToWrite = false;
 
-    public void setHandler(Handler handler) {
+    public void setHandler(MessageHandler handler) {
         this.handler = handler;
     }
 

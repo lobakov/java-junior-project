@@ -3,6 +3,7 @@ package com.db.edu.team03.handler;
 import com.db.edu.team03.server.core.ServerCore;
 import com.db.edu.team03.server.exception.ServerException;
 import com.db.edu.team03.server.handler.*;
+import com.db.edu.team03.server.util.MessageFormatter;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -12,7 +13,7 @@ import static org.mockito.Mockito.*;
 public class MessageHandlerTest {
 
     private ServerCore serverStub;
-    private Handler handlerSut;
+    private MessageHandler handlerSut;
 
     @BeforeEach
     public void setUp() {
@@ -20,7 +21,8 @@ public class MessageHandlerTest {
         UserHandler userHandlerDummy = mock(UserHandler.class);
         FileHandler fileHandlerDummy = mock(FileHandler.class);
         HistoryLogger historyLoggerDummy = mock(HistoryLogger.class);
-        handlerSut = new MessageHandler(serverStub, userHandlerDummy, historyLoggerDummy);
+        MessageFormatter messageFormatterDummy = mock(MessageFormatter.class);
+        handlerSut = new MessageHandler(serverStub, userHandlerDummy, historyLoggerDummy, messageFormatterDummy);
     }
 
     @Test

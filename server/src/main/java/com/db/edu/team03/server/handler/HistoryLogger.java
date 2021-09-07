@@ -11,7 +11,6 @@ public class HistoryLogger {
 
     public HistoryLogger(FileHandler fileHandler) {
         this.fileHandler = fileHandler;
-
     }
 
     public void saveHistory(String message) {
