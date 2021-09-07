@@ -7,15 +7,13 @@ import org.apache.logging.log4j.Logger;
 import java.io.*;
 import java.net.ServerSocket;
 import java.net.Socket;
-import java.util.Map;
-import java.util.concurrent.ConcurrentHashMap;
 
 public class ServerCore {
 
     private static Logger logger = LogManager.getLogger(ServerCore.class);
 
     private MessageHandler messageHandler;
-    private final Map<String, ClientHandler> clients = new ConcurrentHashMap<>();
+    private final ClientHandlerMap clients = new ClientHandlerMap();
 
     public void setMessageHandler(MessageHandler messageHandler) {
         this.messageHandler = messageHandler;
@@ -28,35 +26,21 @@ public class ServerCore {
             for (Socket connection = listener.accept(); connection != null; connection = listener.accept()) {
 
                 ClientHandler clientHandler = new ClientHandler(connection, messageHandler);
-                clients.put(connection.getRemoteSocketAddress().toString(), clientHandler);
+                clients.addClient(connection.getRemoteSocketAddress().toString(), clientHandler);
                 new Thread(clientHandler).start();
             }
         } catch (IOException e) {
-            e.printStackTrace(System.err);
+            logger.error(e);
         }
     }
 
     public void sendToUser(String id, String message) {
-        if (clients.containsKey(id)){
-            ClientHandler client = clients.get(id);
-
-            try {
-                client.getOutput().writeUTF(message);
-                client.getOutput().flush();
-            } catch (IOException e) {
-                logger.info(e.getMessage());
-            }
+        if (clients.checkClientExists(id)){
+            clients.sendMessageToClient(id, message);
         }
     }
 
     public void sendAll(String message) {
-        clients.forEach((k, v) -> {
-            try {
-                v.getOutput().writeUTF(message);
-                v.getOutput().flush();
-            } catch (IOException e) {
-                logger.info(e.getMessage());
-            }
-        });
+        clients.sendMessageToAllClients(message);
     }
 }

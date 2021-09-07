@@ -6,9 +6,9 @@ import com.db.edu.team03.server.handler.MessageHandler;
 import java.io.*;
 import java.net.Socket;
 
-public class ClientHandler implements Runnable{
+public class ClientHandler implements Runnable {
     private final Socket socket;
-    private DataOutputStream output;
+    private final DataOutputStream output;
     private final MessageHandler messageHandler;
 
     public ClientHandler(Socket socket, MessageHandler handler) throws IOException {
@@ -17,24 +17,29 @@ public class ClientHandler implements Runnable{
         this.messageHandler = handler;
     }
 
-    public DataOutputStream getOutput(){
-        return output;
+    public void sendMessageToClient(String message) {
+        try {
+            output.writeUTF(message);
+            output.flush();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     @Override
     public void run() {
         try (
-                final DataInputStream input = new DataInputStream(new BufferedInputStream(socket.getInputStream()));
+                final DataInputStream input = new DataInputStream(new BufferedInputStream(socket.getInputStream()))
         ) {
             String IpAddress = socket.getRemoteSocketAddress().toString();
 
-            while (true) {
+            while (!Thread.currentThread().isInterrupted()) {
                 final String message = input.readUTF();
-                messageHandler.accept(IpAddress,message);
+                messageHandler.accept(IpAddress, message);
             }
 
         } catch (IOException | ServerException e) {
-            e.printStackTrace(System.err);
+            System.out.println("Client disconnected.");
         }
     }
 }

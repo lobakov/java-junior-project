@@ -28,7 +28,7 @@ public class ConsoleThread extends Thread{
                 send(message);
             }
         }catch (IOException e){
-            logger.info(e.getMessage());
+            logger.error(e);
         }
     }
 

@@ -20,7 +20,7 @@ public class FileWriter {
                             new BufferedOutputStream(
                                     new FileOutputStream(file, true)), "windows-1251"));
         } catch (IOException e) {
-            logger.info(e.getMessage());
+            logger.error(e);
         }
     }
 
@@ -29,7 +29,7 @@ public class FileWriter {
             writer.append(message).append(System.lineSeparator());
             writer.flush();
         } catch (IOException e) {
-            logger.info(e.getMessage());
+            logger.error(e);
         }
     }
 }

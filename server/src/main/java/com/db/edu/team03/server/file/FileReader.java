@@ -22,7 +22,7 @@ public class FileReader {
                             new BufferedInputStream(
                                     new FileInputStream(file)), "windows-1251"));
         } catch (IOException e) {
-            logger.info(e.getMessage());
+            logger.error(e);
         }
     }
 
@@ -35,7 +35,7 @@ public class FileReader {
                 historyList.add(readLine);
             }
         } catch (IOException e) {
-            logger.info(e.getMessage());
+            logger.error(e);
         }
 
         return historyList;
