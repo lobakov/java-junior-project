@@ -29,4 +29,14 @@ public class UserHendlerTest {
         userHandler.accept(id);
         assertTrue(userHandler.getNameById(id).equals(UserHandler.getDefaultUsername()));
     }
+
+    @Test
+    public void shouldRemoveFromUsersMapById() {
+        String id1 = "1234";
+        String id2 = "12345";
+        userHandler.accept(id1);
+        userHandler.accept(id2);
+        userHandler.removeUserByAddress(id1);
+        assertFalse(userHandler.getUsers().containsKey(id1));
+    }
 }
