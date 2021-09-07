@@ -15,6 +15,7 @@ public class UserHandler {
 
     /**
      * Associates new user with default user name by his address;
+     *
      * @param address
      */
     public void accept(String address) {
@@ -23,7 +24,8 @@ public class UserHandler {
 
     /**
      * Changes user name to the one chosen by user
-     * @param address - ip address and port of user willing to change name
+     *
+     * @param address  - ip address and port of user willing to change name
      * @param username - new name received by user
      */
     public String changeUsername(String address, String username) {
@@ -38,9 +40,9 @@ public class UserHandler {
     }
 
     private boolean checkUsernameCorrect(String username) {
-        char[] notNeedSymbols = {'\u0020','\u0009','\u000C','\r','\n'};
+        char[] notNeedSymbols = {'\u0020', '\u0009', '\u000C', '\r', '\n'};
         boolean res = false;
-        for (char ch: notNeedSymbols) {
+        for (char ch : notNeedSymbols) {
             if (username.indexOf(ch) != -1) {
                 res = true;
             }
@@ -54,6 +56,7 @@ public class UserHandler {
 
     /**
      * Gets name associated with user ip and port
+     *
      * @param address - user's ip and port
      * @return - returns name currently associated with address
      */
@@ -63,6 +66,7 @@ public class UserHandler {
 
     /**
      * Remove user from map users by his ip and port
+     *
      * @param address - user's ip and port
      */
     public void removeUserByAddress(String address) {

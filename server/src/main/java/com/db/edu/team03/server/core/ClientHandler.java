@@ -2,6 +2,7 @@ package com.db.edu.team03.server.core;
 
 import com.db.edu.team03.server.exception.ServerException;
 import com.db.edu.team03.server.handler.MessageHandler;
+
 import java.io.*;
 import java.net.Socket;
 
@@ -21,8 +22,9 @@ public class ClientHandler implements Runnable {
     }
 
     /**
-     *  method that sends message to client
-     *  @param message - message body
+     * method that sends message to client
+     *
+     * @param message - message body
      */
     public void sendMessageToClient(String message) {
         try {

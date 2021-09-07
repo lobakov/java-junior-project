@@ -19,6 +19,7 @@ public class HistoryLogger {
 
     /**
      * Saves message to chat history log
+     *
      * @param message - message, received by user
      */
     public void saveHistory(String message) {
@@ -27,6 +28,7 @@ public class HistoryLogger {
 
     /**
      * Reads saved history from chat history log
+     *
      * @return - composed log of all messages that present in chat history log
      */
     public String readHistory() {
@@ -37,7 +39,7 @@ public class HistoryLogger {
         StringJoiner joiner = new StringJoiner(DELIMITER);
         List<String> fileLines = fileHandler.readHistory();
         joiner.add("=========");
-        for (String line: fileLines) {
+        for (String line : fileLines) {
             joiner.add(line);
         }
         joiner.add("=========");

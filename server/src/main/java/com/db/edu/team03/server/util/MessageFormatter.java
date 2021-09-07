@@ -10,7 +10,8 @@ public class MessageFormatter {
 
     /**
      * The only public api method that formats messages
-     * @param name - user name of a user sending this message
+     *
+     * @param name    - user name of a user sending this message
      * @param message - message body of a message sent by user
      * @return formatted message suitable for sending to chat
      */

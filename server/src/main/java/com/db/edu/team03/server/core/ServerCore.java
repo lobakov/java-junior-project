@@ -40,26 +40,27 @@ public class ServerCore {
 
     /**
      * method that sends message to user
-     *  @param id - ip adress + port
-     *  @param message - message body
+     *
+     * @param id      - ip adress + port
+     * @param message - message body
      */
     public void sendToUser(String id, String message) {
-        if (clients.checkClientExists(id)) {
-            clients.sendMessageToClient(id, message);
-        }
+        clients.sendMessageToClient(id, message);
     }
 
     /**
-     *  method that sends message to all users
-     *  @param message - message body
+     * method that sends message to all users
+     *
+     * @param message - message body
      */
     public void sendAll(String message) {
         clients.sendMessageToAllClients(message);
     }
 
     /**
-     *  method that returns map of all users ClientHandlers
-     *  @return ClientHandlerMap.class
+     * method that returns map of all users ClientHandlers
+     *
+     * @return ClientHandlerMap.class
      */
     public static ClientHandlerMap getClientsHandlerMap() {
         return clients;

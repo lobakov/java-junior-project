@@ -35,6 +35,7 @@ public class MessageHandler {
 
     /**
      * Checks for basic errors and pass incoming data to further parsing and processing
+     *
      * @param address - ip address and port of a user who sent message
      * @param message - message from user, containing commands and or message body for chat
      * @throws ServerException
@@ -55,7 +56,7 @@ public class MessageHandler {
         String command = parsed[COMMAND_INDEX];
         String body = "";
 
-        if ( parsed.length > BODY_INDEX) {
+        if (parsed.length > BODY_INDEX) {
             body = parseBody(parsed);
         }
         String id = userHandler.getNameById(address);
@@ -69,8 +70,7 @@ public class MessageHandler {
                 String nickChanged = id + NICK_CHANGED_MESSAGE + body + NEW_LINE;
                 historyLogger.saveHistory(nickChanged);
                 server.sendAll(nickChanged);
-            } else
-            {
+            } else {
                 server.sendToUser(address, resultOfSetName);
             }
         } else if (command.equals(Prefix.HIST.value)) {
@@ -93,7 +93,7 @@ public class MessageHandler {
         return joiner.toString();
     }
 
-    public void removeUserNickname(String adress){
+    public void removeUserNickname(String adress) {
         userHandler.removeUserByAddress(adress);
     }
 
