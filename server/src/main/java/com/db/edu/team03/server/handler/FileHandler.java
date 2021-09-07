@@ -25,6 +25,12 @@ public class FileHandler {
         this.reader = new FileReader(file);
     }
 
+    public FileHandler(File file) {
+
+        this.writer = new FileWriter(file);
+        this.reader = new FileReader(file);
+    }
+
     public List<String> readHistory() {
         return reader.read();
     }

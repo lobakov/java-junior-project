@@ -62,7 +62,7 @@ public class MessageHandler {
 
         if (command.equals(Prefix.SEND.value)) {
             historyLogger.saveHistory(composeMessage(id, body));
-            server.sendAll(composeMessage(address, body));
+            server.sendAll(composeMessage(id, body));
         } else if (command.equals(Prefix.CHID.value)) {
             userHandler.changeUsername(address, body);
             String nickChanged = id + NICK_CHANGED_MESSAGE + body + NEW_LINE;

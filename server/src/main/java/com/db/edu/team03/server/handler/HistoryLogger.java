@@ -36,9 +36,11 @@ public class HistoryLogger {
     private String linesToString() {
         StringJoiner joiner = new StringJoiner(DELIMITER);
         List<String> fileLines = fileHandler.readHistory();
+        joiner.add("=========");
         for (String line: fileLines) {
             joiner.add(line);
         }
+        joiner.add("=========");
         return joiner.toString();
     }
 }
