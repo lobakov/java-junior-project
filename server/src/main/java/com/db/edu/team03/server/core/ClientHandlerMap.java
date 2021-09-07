@@ -3,6 +3,9 @@ package com.db.edu.team03.server.core;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
+/**
+ * ServerCore - class that contains map of <Client adress, ClientHandler> and public API for it
+ */
 public class ClientHandlerMap {
     private final Map<String, ClientHandler> clients;
 
