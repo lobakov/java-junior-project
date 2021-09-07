@@ -11,12 +11,7 @@ public class ServerApplication {
     public static void main(String[] args) {
         ServerCore server = new ServerCore();
 
-        UserHandler userHandler = new UserHandler();
-        FileHandler fileHandler = new FileHandler();
-        HistoryLogger historyLogger = new HistoryLogger(fileHandler);
-
-        MessageFormatter messageFormatter = new MessageFormatter();
-        MessageHandler messageHandler = new MessageHandler(server, userHandler, historyLogger, messageFormatter);
+        MessageHandler messageHandler = new MessageHandler(server);
         server.setHandler(messageHandler);
         server.listenPort();
     }

@@ -1,6 +1,5 @@
 package com.db.edu.team03.server.core;
 
-import com.db.edu.team03.server.exception.ServerException;
 import com.db.edu.team03.server.handler.MessageHandler;
 
 import java.io.*;
@@ -8,7 +7,6 @@ import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
-import java.util.logging.Handler;
 
 public class ServerCore {
 

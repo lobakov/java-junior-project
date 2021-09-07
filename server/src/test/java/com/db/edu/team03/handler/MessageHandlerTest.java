@@ -18,11 +18,7 @@ public class MessageHandlerTest {
     @BeforeEach
     public void setUp() {
         serverStub = mock(ServerCore.class);
-        UserHandler userHandlerDummy = mock(UserHandler.class);
-        FileHandler fileHandlerDummy = mock(FileHandler.class);
-        HistoryLogger historyLoggerDummy = mock(HistoryLogger.class);
-        MessageFormatter messageFormatterDummy = mock(MessageFormatter.class);
-        handlerSut = new MessageHandler(serverStub, userHandlerDummy, historyLoggerDummy, messageFormatterDummy);
+        handlerSut = new MessageHandler(serverStub);
     }
 
     @Test
