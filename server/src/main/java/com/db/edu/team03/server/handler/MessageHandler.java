@@ -93,6 +93,10 @@ public class MessageHandler {
         return joiner.toString();
     }
 
+    public void removeUserNickname(String adress){
+        userHandler.removeUserByAddress(adress);
+    }
+
     private String composeMessage(String id, String message) {
         return messageFormatter.format(id, message);
     }

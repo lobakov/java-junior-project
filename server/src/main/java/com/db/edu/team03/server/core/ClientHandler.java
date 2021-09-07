@@ -35,19 +35,20 @@ public class ClientHandler implements Runnable {
 
     @Override
     public void run() {
-        String IpAddress = socket.getRemoteSocketAddress().toString();
+        String ipAddress = socket.getRemoteSocketAddress().toString();
 
         try (
                 final DataInputStream input = new DataInputStream(new BufferedInputStream(socket.getInputStream()))
         ) {
             while (!Thread.currentThread().isInterrupted()) {
                 final String message = input.readUTF();
-                messageHandler.accept(IpAddress, message);
+                messageHandler.accept(ipAddress, message);
             }
 
         } catch (IOException | ServerException e) {
             System.out.println("Client disconnected.");
-            ServerCore.getClientsHandlerMap().removeClient(IpAddress);
+            ServerCore.getClientsHandlerMap().removeClient(ipAddress);
+            messageHandler.removeUserNickname(ipAddress);
         }
     }
 }
