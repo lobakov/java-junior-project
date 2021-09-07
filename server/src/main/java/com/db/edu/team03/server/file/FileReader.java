@@ -1,5 +1,8 @@
 package com.db.edu.team03.server.file;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -8,6 +11,8 @@ import java.util.List;
  * FileReader handles low-level logic of reading the whole file and present it as a list of string lines.
  */
 public class FileReader {
+    private static Logger logger = LogManager.getLogger(FileReader.class);
+
     private BufferedReader reader;
 
     public FileReader(File file) {
@@ -17,7 +22,7 @@ public class FileReader {
                             new BufferedInputStream(
                                     new FileInputStream(file)), "windows-1251"));
         } catch (IOException e) {
-            e.printStackTrace();
+            logger.info(e.getMessage());
         }
     }
 
@@ -30,7 +35,7 @@ public class FileReader {
                 historyList.add(readLine);
             }
         } catch (IOException e) {
-            e.printStackTrace();
+            logger.info(e.getMessage());
         }
 
         return historyList;

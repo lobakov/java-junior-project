@@ -1,10 +1,15 @@
 package com.db.edu.team03.client;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 
 public class ConsoleThread extends Thread{
+    private static Logger logger = LogManager.getLogger(ConsoleThread.class);
+
     private final Connection connection;
     private final BufferedReader reader;
     private static final int MAX_MESSAGE_LENGTH = 150;
@@ -23,7 +28,7 @@ public class ConsoleThread extends Thread{
                 send(message);
             }
         }catch (IOException e){
-            e.printStackTrace();
+            logger.info(e.getMessage());
         }
     }
 

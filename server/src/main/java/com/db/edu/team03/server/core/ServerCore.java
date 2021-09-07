@@ -1,6 +1,8 @@
 package com.db.edu.team03.server.core;
 
 import com.db.edu.team03.server.handler.MessageHandler;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import java.io.*;
 import java.net.ServerSocket;
@@ -9,6 +11,8 @@ import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
 public class ServerCore {
+
+    private static Logger logger = LogManager.getLogger(ServerCore.class);
 
     private MessageHandler messageHandler;
     private final Map<String, ClientHandler> clients = new ConcurrentHashMap<>();
@@ -40,7 +44,7 @@ public class ServerCore {
                 client.getOutput().writeUTF(message);
                 client.getOutput().flush();
             } catch (IOException e) {
-                e.printStackTrace();
+                logger.info(e.getMessage());
             }
         }
     }
@@ -51,7 +55,7 @@ public class ServerCore {
                 v.getOutput().writeUTF(message);
                 v.getOutput().flush();
             } catch (IOException e) {
-                e.printStackTrace();
+                logger.info(e.getMessage());
             }
         });
     }

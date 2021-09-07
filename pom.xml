@@ -24,6 +24,7 @@
         <pitest.junit5.plugin.version>0.14</pitest.junit5.plugin.version>
         <jmh.version>1.32</jmh.version>
         <maven.shade.plugin.version>3.2.4</maven.shade.plugin.version>
+        <org.apache.logging.log4j.version>2.6.1</org.apache.logging.log4j.version>
     </properties>
 
     <dependencies>
@@ -48,6 +49,16 @@
             <groupId>org.openjdk.jmh</groupId>
             <artifactId>jmh-generator-annprocess</artifactId>
             <version>${jmh.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.logging.log4j</groupId>
+            <artifactId>log4j-api</artifactId>
+            <version>${org.apache.logging.log4j.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.logging.log4j</groupId>
+            <artifactId>log4j-core</artifactId>
+            <version>${org.apache.logging.log4j.version}</version>
         </dependency>
     </dependencies>
 
