@@ -5,10 +5,10 @@ import java.io.IOException;
 public class ServerThread extends Thread{
     private final Connection connection;
 
-    private static boolean IS_SERVER_WORKED = true;
+    private static boolean isServerWorked = true;
 
     public static boolean getIsServerWorked(){
-        return IS_SERVER_WORKED;
+        return isServerWorked;
     }
 
     public ServerThread(Connection connection){
@@ -19,13 +19,13 @@ public class ServerThread extends Thread{
 
     @Override
     public void run(){
-        while (true) {
+        while (!this.isInterrupted()) {
             try {
                 System.out.println(connection.receiveMessage());
                 printInvitation();
             } catch (IOException e) {
                 System.out.println("Server disconnected.");
-                IS_SERVER_WORKED = false;
+                isServerWorked = false;
                 return;
             }
         }
