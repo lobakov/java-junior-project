@@ -3,13 +3,12 @@ package com.db.edu.team03.server.handler;
 import java.util.HashMap;
 import java.util.Map;
 
-public class UserHandler extends GenericHandler {
+public class UserHandler {
 
     private static final String DEFAULT_USERNAME = "user";
 
     private Map<String, String> users = new HashMap<>();
 
-    @Override
     public void accept(String id) {
         users.putIfAbsent(id, DEFAULT_USERNAME);
     }
@@ -18,7 +17,7 @@ public class UserHandler extends GenericHandler {
         users.put(id, username);
     }
 
-    @Override
-    public void accept(String address, String message) {
+    public String getIdByAddress(String address) {
+        return users.get(address);
     }
 }
