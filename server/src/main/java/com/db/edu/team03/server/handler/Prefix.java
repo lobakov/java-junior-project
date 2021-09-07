@@ -3,7 +3,8 @@ package com.db.edu.team03.server.handler;
 public enum Prefix {
     SEND("/snd"),
     CHID("/chid"),
-    HIST("/hist");
+    HIST("/hist"),
+    CHROOM("/chroom");
 
     public final String value;
 

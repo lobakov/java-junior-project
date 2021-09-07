@@ -70,6 +70,9 @@ public class MessageHandler {
             server.sendAll(nickChanged);
         } else if (command.equals(Prefix.HIST.value)) {
             server.sendToUser(address, composeMessage(SERVER_NAME, historyLogger.readHistory()));
+        } else if (command.equals(Prefix.CHROOM.value)) {
+            /////
+            /////
         } else {
             String error = composeMessage(SERVER_NAME, WRONG_MESSAGE);
             historyLogger.saveHistory(error);
