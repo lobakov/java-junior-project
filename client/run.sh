@@ -1,1 +1,1 @@
-java -jar "target/client-1.0-SNAPSHOT.jar"
+java -jar "target/client.jar"

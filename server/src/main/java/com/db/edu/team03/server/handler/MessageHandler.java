@@ -47,15 +47,15 @@ public class MessageHandler {
 
         if (command.equals(Prefix.SEND.value)) {
             historyLogger.saveHistory(composeMessage(id, body));
-            server.sendAll(composeMessage(id, body));
+            server.sendAll(composeMessage(address, body));
         } else if (command.equals(Prefix.CHID.value)) {
             userHandler.changeUsername(id, body);
         } else if (command.equals(Prefix.HIST.value)) {
-            server.sendToUser(id, composeMessage(SERVER_NAME, historyLogger.readHistory()));
+            server.sendToUser(address, composeMessage(SERVER_NAME, historyLogger.readHistory()));
         } else {
             String error = composeMessage(SERVER_NAME, WRONG_MESSAGE);
             historyLogger.saveHistory(error);
-            server.sendToUser(id, error);
+            server.sendToUser(address, error);
         }
     }
 

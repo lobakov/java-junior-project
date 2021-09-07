@@ -10,7 +10,7 @@ import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.logging.Handler;
 
-public class ServerCore implements Server {
+public class ServerCore {
 
     private MessageHandler handler;
 
@@ -40,17 +40,13 @@ public class ServerCore implements Server {
         }
     }
 
-    @Override
     public void sendToUser(String id, String message) {
         clientIdNeededForMessage = id;
         messageToClient = message;
         haveSmthToWriteToClient = true;
     }
 
-    @Override
     public void sendAll(String message) {
-        haveSmthToWrite = true;
-        outputMessage = message;
         haveSmthToWriteToAllClients =true;
         messageToAllClients = message;
     }
