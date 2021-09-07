@@ -23,4 +23,12 @@ public class FileHandler {
     public void write(String message) {
         writer.write(message);
     }
+
+    public FileReader getReader() {
+        return reader;
+    }
+
+    public FileWriter getWriter() {
+        return writer;
+    }
 }
