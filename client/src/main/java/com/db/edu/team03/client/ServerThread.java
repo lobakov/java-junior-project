@@ -7,6 +7,7 @@ public class ServerThread extends Thread{
 
     public ServerThread(Connection connection){
         this.connection = connection;
+        System.out.print("Welcome to team03 chat.");
     }
 
     @Override

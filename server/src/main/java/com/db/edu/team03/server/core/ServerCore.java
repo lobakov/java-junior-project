@@ -48,6 +48,8 @@ public class ServerCore implements Server {
 
     @Override
     public void sendAll(String message) {
+        haveSmthToWrite = true;
+        outputMessage = message;
         haveSmthToWriteToAllClients =true;
         messageToAllClients = message;
     }
