@@ -64,10 +64,15 @@ public class MessageHandler {
             historyLogger.saveHistory(composeMessage(id, body));
             server.sendAll(composeMessage(id, body));
         } else if (command.equals(Prefix.CHID.value)) {
-            userHandler.changeUsername(address, body);
-            String nickChanged = id + NICK_CHANGED_MESSAGE + body + NEW_LINE;
-            historyLogger.saveHistory(nickChanged);
-            server.sendAll(nickChanged);
+            String resultOfSetName = userHandler.changeUsername(address, body);
+            if (resultOfSetName.equals(body)) {
+                String nickChanged = id + NICK_CHANGED_MESSAGE + body + NEW_LINE;
+                historyLogger.saveHistory(nickChanged);
+                server.sendAll(nickChanged);
+            } else
+            {
+                server.sendToUser(address, resultOfSetName);
+            }
         } else if (command.equals(Prefix.HIST.value)) {
             server.sendToUser(address, historyLogger.readHistory());
         } else if (command.equals(Prefix.CHROOM.value)) {

@@ -26,8 +26,30 @@ public class UserHandler {
      * @param address - ip address and port of user willing to change name
      * @param username - new name received by user
      */
-    public void changeUsername(String address, String username) {
-        users.put(address, username);
+    public String changeUsername(String address, String username) {
+        if (checkUsernameCorrect(username)) {
+            return "Your username shouldn't have whitespace symbols";
+        } else if (checkUniqueUsername(username)) {
+            return "Server have this username yet. Use unique username";
+        } else {
+            users.put(address, username);
+            return username;
+        }
+    }
+
+    private boolean checkUsernameCorrect(String username) {
+        char[] notNeedSymbols = {'\u0020','\u0009','\u000C','\r','\n'};
+        boolean res = false;
+        for (char ch: notNeedSymbols) {
+            if (username.indexOf(ch) != -1) {
+                res = true;
+            }
+        }
+        return res;
+    }
+
+    private boolean checkUniqueUsername(String username) {
+        return users.containsValue(username);
     }
 
     /**
@@ -37,6 +59,14 @@ public class UserHandler {
      */
     public String getNameById(String address) {
         return users.get(address);
+    }
+
+    /**
+     * Remove user from map users by his ip and port
+     * @param address - user's ip and port
+     */
+    public void removeUserByAddress(String address) {
+        users.remove(address);
     }
 
     public Map<String, String> getUsers() {

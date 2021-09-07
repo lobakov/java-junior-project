@@ -35,6 +35,8 @@ public class ConsoleThread extends Thread {
         if (!message.isEmpty() && message.length() < MAX_MESSAGE_LENGTH) {
             connection.sendMessage(message); // protocol
             res = true;
+        } else if (message.length() > MAX_MESSAGE_LENGTH){
+            System.out.println("Your message longer than 150 symbols. Please, send shorter message.");
         }
         return res;
     }
