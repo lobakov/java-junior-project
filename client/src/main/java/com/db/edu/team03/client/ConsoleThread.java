@@ -18,14 +18,13 @@ public class ConsoleThread extends Thread{
     @Override
     public void run() {
         try{
-            while (true) {
+            while (ServerThread.getIsServerWorked()) {
                 String message = reader.readLine();
                 send(message);
             }
         }catch (IOException e){
             e.printStackTrace();
         }
-
     }
 
     public boolean send(String message) throws IOException {

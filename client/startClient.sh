@@ -1,1 +1,1 @@
-java -jar /home/lobakov/projects/java-junior-project/client/target/client.jar
+java -jar "target/client.jar"
