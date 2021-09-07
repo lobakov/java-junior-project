@@ -14,6 +14,7 @@ public class ServerThread extends Thread{
     public ServerThread(Connection connection){
         this.connection = connection;
         System.out.println("Welcome to team03 chat.");
+        printInvitation();
     }
 
     @Override
@@ -21,11 +22,16 @@ public class ServerThread extends Thread{
         while (true) {
             try {
                 System.out.println(connection.receiveMessage());
+                printInvitation();
             } catch (IOException e) {
                 System.out.println("Server disconnected.");
                 IS_SERVER_WORKED = false;
                 return;
             }
         }
+    }
+
+    private void printInvitation() {
+        System.out.print("> ");
     }
 }

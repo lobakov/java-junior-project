@@ -6,6 +6,10 @@ import com.db.edu.team03.server.file.FileWriter;
 import java.io.File;
 import java.util.List;
 
+/**
+ * FileHandler handles log file of chat history, by writing to or reading from file,
+ * which location is configured in ServerApplication class.
+ */
 public class FileHandler {
 
     private final FileReader reader;

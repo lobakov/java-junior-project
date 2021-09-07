@@ -2,6 +2,9 @@ package com.db.edu.team03.server.file;
 
 import java.io.*;
 
+/**
+ * FileWriter handles low-level logic of writing string messages to chat history log.
+ */
 public class FileWriter {
     private BufferedWriter writer;
 
