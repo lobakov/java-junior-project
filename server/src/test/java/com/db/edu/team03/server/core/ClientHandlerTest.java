@@ -1,6 +1,5 @@
-package com.db.edu.team03.core;
+package com.db.edu.team03.server.core;
 
-import com.db.edu.team03.server.core.ClientHandler;
 import com.db.edu.team03.server.handler.MessageHandler;
 import org.junit.jupiter.api.Test;
 

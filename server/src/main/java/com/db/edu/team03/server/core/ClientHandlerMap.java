@@ -2,6 +2,7 @@ package com.db.edu.team03.server.core;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Optional;
 
 /**
  * ServerCore - class that contains map of <Client adress, ClientHandler> and public API for it
@@ -14,10 +15,18 @@ public class ClientHandlerMap {
         clients = new HashMap<>();
     }
 
+    public void clear() {
+        clients.clear();
+    }
+
     public void addClient(String adress, ClientHandler handler) {
         synchronized (monitor) {
             clients.put(adress, handler);
         }
+    }
+
+    public boolean isClientExists(String address){
+        return clients.containsKey(address);
     }
 
     public void removeClient(String adress) {
