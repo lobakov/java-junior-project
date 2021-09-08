@@ -2,7 +2,6 @@ package com.db.edu.team03.server.core;
 
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Optional;
 
 /**
  * ServerCore - class that contains map of <Client adress, ClientHandler> and public API for it

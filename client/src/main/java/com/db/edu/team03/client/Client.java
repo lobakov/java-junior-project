@@ -26,8 +26,10 @@ public class Client {
             serverThread.join();
             consoleThread.join();
 
-        } catch (IOException | InterruptedException e) {
+        } catch (IOException e) {
             throw new ClientException();
+        } catch (InterruptedException e) {
+            Thread.currentThread().interrupt();
         }
     }
 }

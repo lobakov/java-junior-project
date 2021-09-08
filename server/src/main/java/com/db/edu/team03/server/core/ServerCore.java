@@ -31,9 +31,7 @@ public class ServerCore {
                 startClientHandlerThread(new Thread(handler));
                 connection = listener.accept();
             }
-        } catch (IllegalArgumentException e) {
-            throw new PortListeningException();
-        } catch (IOException e) {
+        } catch (IllegalArgumentException | IOException e) {
             throw new PortListeningException();
         }
     }
