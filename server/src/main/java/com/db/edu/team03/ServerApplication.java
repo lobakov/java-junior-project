@@ -13,15 +13,31 @@ public class ServerApplication {
     private static final String HOME = System.getProperty("user.home");
     private static final String DEFAULT_FILENAME = HOME + "/team03-chat-history.log";
 
+    static File createFile(String fileName) {
+        return new File(fileName);
+    }
+
+    static FileReader createFileReader(File file){
+        return new FileReader(file);
+    }
+
+    static FileWriter createFileWriter(File file){
+        return new FileWriter(file);
+    }
+
+    static FileHandler createFileHandler(FileReader reader, FileWriter writer){
+        return new FileHandler(reader, writer);
+    }
+
     public static void main(String[] args) {
         ServerCore server = new ServerCore();
 
-        File file = new File(DEFAULT_FILENAME);
+        File file = createFile(DEFAULT_FILENAME);
 
-        FileReader fileReader = new FileReader(file);
-        FileWriter fileWriter = new FileWriter(file);
+        FileReader fileReader = createFileReader(file);
+        FileWriter fileWriter = createFileWriter(file);
 
-        FileHandler fileHandler = new FileHandler(fileReader, fileWriter);
+        FileHandler fileHandler = createFileHandler(fileReader, fileWriter);
 
         HistoryLogger historyLogger = new HistoryLogger(fileHandler);
         UserHandler userHandler = new UserHandler();
