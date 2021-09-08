@@ -27,7 +27,8 @@ public class ServerCore {
             Socket connection = listener.accept();
             while (connection != null)
             {
-                startClientHandlerThread(createNewClient(connection));
+                ClientHandler handler = createNewClient(connection);
+                startClientHandlerThread(new Thread(handler));
                 connection = listener.accept();
             }
         } catch (IOException e) {
@@ -41,8 +42,8 @@ public class ServerCore {
         return clientHandler;
     }
 
-    void startClientHandlerThread(ClientHandler clientHandler) {
-        new Thread(clientHandler).start();
+    void startClientHandlerThread(Thread t) {
+        t.start();
     }
 
     /**

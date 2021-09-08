@@ -73,17 +73,13 @@ public class ServerCoreTest {
         assertTrue(ServerCore.getClientsHandlerMap().isClientExists(address.toString()));
     }
 
-//    @Test
-//    public void shouldStartNewThreadWithNewClient() throws IOException {
-//        ServerCore core = mock(ServerCore.class);
-//        ClientHandler handler = mock(ClientHandler.class);
-//        Socket connection = mock(Socket.class);
-//        SocketAddress address = new InetSocketAddress("localhost", 8080);
-//
-//        when(connection.getRemoteSocketAddress()).thenReturn(address);
-//        when(core.createNewClient(connection)).thenReturn(handler);
-//
-//        core.startClientHandlerThread(core.createNewClient(connection));
-//        verify(handler).run();
-//    }
+    @Test
+    public void shouldStartNewThreadWithNewClient() throws IOException {
+        Thread t = mock(Thread.class);
+
+        serverCore.startClientHandlerThread(t);
+        verify(t).start();
+    }
+
+
 }
