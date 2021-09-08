@@ -19,7 +19,7 @@ public class ServerThreadTest {
     private final String expected = message + System.lineSeparator() + ">";
     private final PrintStream standardOut = System.out;
     private final ByteArrayOutputStream outputStreamCaptor = new ByteArrayOutputStream();
-
+    private ServerThread serverThread;
     @BeforeEach
     void setUp() {
         System.setOut(new PrintStream(outputStreamCaptor));
@@ -31,21 +31,22 @@ public class ServerThreadTest {
     }
 
     @Test
-    void shouldReturnFalseWhenServerThreadNotCreated() {
-        assertFalse(ServerThread.getIsServerWorked());
+    void shouldReturnTrueWhenServerThreadCreated() {
+        serverThread = new ServerThread(connection);
+        assertTrue(ServerThread.getIsServerWorked());
     }
 
     @Test
-    void shouldReceiveMessages() throws IOException, InterruptedException {
-        ServerThread serverThread = new ServerThread(connection);
+    void shouldReceiveMessages() throws IOException{
+        serverThread = new ServerThread(connection);
         when(connection.receiveMessage()).thenReturn(message);
         serverThread.printMessage();
         assertEquals("Welcome to team03 chat." + System.lineSeparator() + "> " + expected, outputStreamCaptor.toString().trim());
     }
 
     @Test
-    void shouldDisableServerThreadWhenErrorInCOnnection() throws IOException, InterruptedException {
-        ServerThread serverThread = new ServerThread(connection);
+    void shouldDisableServerThreadWhenErrorInConnection() throws IOException {
+        serverThread = new ServerThread(connection);
         when(connection.receiveMessage()).thenThrow(IOException.class);
         serverThread.printMessage();
         assertFalse(ServerThread.getIsServerWorked());
@@ -53,30 +54,15 @@ public class ServerThreadTest {
 
     @Test
     void shouldPrintServerDisconnectedMessageWhenTroublesWithConnection() throws IOException {
-        ServerThread serverThread = new ServerThread(connection);
+        serverThread = new ServerThread(connection);
         when(connection.receiveMessage()).thenThrow(IOException.class);
         serverThread.printMessage();
         assertEquals("Welcome to team03 chat." + System.lineSeparator() + "> Server disconnected.", outputStreamCaptor.toString().trim());
     }
 
     @Test
-    void should() {
-        ServerThread serverThread = mock(ServerThread.class);
-
-    }
-
-    @Test
-    void shouldCatchIOException() throws IOException {
-        when(connection.receiveMessage()).thenThrow(IOException.class);
-
-        serverThread.printMessage();
-
-        assertEquals("Server disconnected.", outputStreamCaptor.toString().trim());
-    }
-
-    @Test
     void shouldPrintIntroMessage() {
-        ServerThread serverThreadTest = new ServerThread(connection);
+        serverThread = new ServerThread(connection);
         assertEquals("Welcome to team03 chat." + System.lineSeparator() + ">", outputStreamCaptor.toString().trim());
     }
 }

@@ -12,6 +12,7 @@ public class ServerThread extends Thread{
     }
 
     public ServerThread(Connection connection){
+        isServerWorked = true;
         this.connection = connection;
         System.out.println("Welcome to team03 chat.");
         printInvitation();
@@ -19,7 +20,6 @@ public class ServerThread extends Thread{
 
     @Override
     public void run(){
-        isServerWorked = true;
         while (!this.isInterrupted()) {
             printMessage();
         }
