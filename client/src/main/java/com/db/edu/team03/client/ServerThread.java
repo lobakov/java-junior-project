@@ -5,7 +5,7 @@ import java.io.IOException;
 public class ServerThread extends Thread{
     private final Connection connection;
 
-    private static boolean isServerWorked = true;
+    private static boolean isServerWorked = false;
 
     public static boolean getIsServerWorked(){
         return isServerWorked;
@@ -19,6 +19,7 @@ public class ServerThread extends Thread{
 
     @Override
     public void run(){
+        isServerWorked = true;
         while (!this.isInterrupted()) {
             printMessage();
         }
@@ -36,4 +37,5 @@ public class ServerThread extends Thread{
     private void printInvitation() {
         System.out.print("> ");
     }
+
 }
