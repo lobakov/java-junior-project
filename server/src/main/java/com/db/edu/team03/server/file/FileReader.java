@@ -13,6 +13,7 @@ public class FileReader {
     private File file;
 
     public FileReader(File file) {
+        if (file == null) throw new IllegalArgumentException();
         this.file = file;
     }
 

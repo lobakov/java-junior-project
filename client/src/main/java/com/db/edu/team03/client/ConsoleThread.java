@@ -1,6 +1,7 @@
 package com.db.edu.team03.client;
 
 import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.IOException;
 import java.io.InputStreamReader;
 
@@ -25,14 +26,14 @@ public class ConsoleThread extends Thread {
                     System.out.println("Server unavailable, cannot send messages. Exiting.");
                 }
             }
-        }catch (IOException e){
+        } catch (IOException e){
             e.printStackTrace();
         }
     }
 
     public boolean send(String message) throws IOException {
         boolean res = false;
-        if (!message.isEmpty() && message.length() < MAX_MESSAGE_LENGTH) {
+        if (!message.isEmpty() && message.length() <= MAX_MESSAGE_LENGTH) {
             connection.sendMessage(message); // protocol
             res = true;
         } else if (message.length() > MAX_MESSAGE_LENGTH){
