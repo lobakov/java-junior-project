@@ -32,10 +32,6 @@ public class HistoryLogger {
      * @return - composed log of all messages that present in chat history log
      */
     public String readHistory() {
-        return linesToString();
-    }
-
-    private String linesToString() {
         StringJoiner joiner = new StringJoiner(DELIMITER);
         List<String> fileLines = fileHandler.readHistory();
         joiner.add("=========");

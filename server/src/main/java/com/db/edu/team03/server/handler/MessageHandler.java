@@ -13,10 +13,9 @@ import java.util.StringJoiner;
  */
 public class MessageHandler {
     private static final String DELIMITER = " ";
-    private static final String NEW_LINE = System.lineSeparator();
     private static final String NICK_CHANGED_MESSAGE = "'s nickname was changed to ";
     private static final String SERVER_NAME = "Server";
-    private static final String WRONG_MESSAGE = "Unrecognized message" + NEW_LINE;
+    private static final String WRONG_MESSAGE = "Unrecognized message";
 
     private static final int COMMAND_INDEX = 0;
     private static final int BODY_INDEX = 1;
@@ -83,7 +82,8 @@ public class MessageHandler {
     }
 
     private void sendWrongMessageError(String address) {
-        String error = composeMessage(SERVER_NAME, WRONG_MESSAGE);
+        String error = messageFormatter.format(SERVER_NAME, WRONG_MESSAGE);
+
         historyLogger.saveHistory(error);
         server.sendToUser(address, error);
     }
@@ -93,19 +93,26 @@ public class MessageHandler {
     }
 
     private void sendMessage(String name, String body) {
-        historyLogger.saveHistory(composeMessage(name, body));
-        server.sendAll(composeMessage(name, body));
+        String composeMessage = messageFormatter.format(name, body);
+
+        historyLogger.saveHistory(composeMessage);
+        server.sendAll(composeMessage);
     }
 
     private void changeName(String address, String name, String body) {
         String resultOfSetName = userHandler.changeUsername(address, body);
+
         if (resultOfSetName.equals(body)) {
-            String nickChanged = name + NICK_CHANGED_MESSAGE + body + NEW_LINE;
+            String nickChanged = name + NICK_CHANGED_MESSAGE + body;
             historyLogger.saveHistory(nickChanged);
             server.sendAll(nickChanged);
         } else {
             server.sendToUser(address, resultOfSetName);
         }
+    }
+
+    private String parsePrefix(String message){
+        return message.split(" ")[0];
     }
 
     private String parseBody(String[] parsed) {
@@ -114,9 +121,5 @@ public class MessageHandler {
             joiner.add(parsed[i]);
         }
         return joiner.toString();
-    }
-
-    private String composeMessage(String id, String message) {
-        return messageFormatter.format(id, message);
     }
 }

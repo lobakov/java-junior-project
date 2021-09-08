@@ -45,6 +45,7 @@ public class ClientHandler implements Runnable {
             while (!Thread.currentThread().isInterrupted()) {
                 final String message = input.readUTF();
                 messageHandler.accept(ipAddress, message);
+
             }
 
         } catch (IOException | ServerException e) {
