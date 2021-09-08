@@ -1,6 +1,7 @@
 package com.db.edu.team03.server.handler;
 
 public enum Prefix {
+    UNKNOWN(""),
     SEND("/snd"),
     CHID("/chid"),
     HIST("/hist"),
@@ -9,7 +10,7 @@ public enum Prefix {
     public final String value;
 
     public static Prefix commandToPrefix(String command) {
-        Prefix result = null;
+        Prefix result = UNKNOWN;
         for (Prefix prefix: Prefix.values()) {
             if (prefix.value.equals(command)) {
                 result = prefix;
