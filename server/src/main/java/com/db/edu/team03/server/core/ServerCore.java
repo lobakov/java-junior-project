@@ -22,8 +22,8 @@ public class ServerCore {
     /**
      * method that listen ports. Creates ClientHandler for every new connection
      */
-    public void listenPort() throws PortListeningException {
-        try (final ServerSocket listener = new ServerSocket(10_000)) {
+    public void listenPort(int port) throws PortListeningException {
+        try (final ServerSocket listener = new ServerSocket(port)) {
             Socket connection = listener.accept();
             while (connection != null)
             {
@@ -31,6 +31,8 @@ public class ServerCore {
                 startClientHandlerThread(new Thread(handler));
                 connection = listener.accept();
             }
+        } catch (IllegalArgumentException e) {
+            throw new PortListeningException();
         } catch (IOException e) {
             throw new PortListeningException();
         }

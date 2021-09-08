@@ -30,7 +30,7 @@ public class ServerApplication {
         MessageHandler messageHandler = new MessageHandler(server, historyLogger, userHandler, messageFormatter);
         server.setMessageHandler(messageHandler);
         try {
-            server.listenPort();
+            server.listenPort(10000);
         } catch (PortListeningException e) {
             System.out.println("Exception while listening port.");
         }

@@ -1,6 +1,7 @@
 package com.db.edu.team03.server.core;
 
 import com.db.edu.team03.SysoutCaptureAndAssertionAbility;
+import com.db.edu.team03.server.exception.PortListeningException;
 import com.db.edu.team03.server.handler.MessageHandler;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
@@ -11,8 +12,7 @@ import java.net.InetSocketAddress;
 import java.net.Socket;
 import java.net.SocketAddress;
 
-import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
 
@@ -79,6 +79,11 @@ public class ServerCoreTest {
 
         serverCore.startClientHandlerThread(t);
         verify(t).start();
+    }
+
+    @Test
+    public void shouldThrowExceptionWhenListeningInvalidPort() {
+        assertThrows(PortListeningException.class, () -> serverCore.listenPort(-1) );
     }
 
 
