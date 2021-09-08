@@ -29,15 +29,17 @@ public class FileReader {
                 historyList.add(readLine);
             }
         } catch (IOException e) {
-            e.printStackTrace();
+            historyList.clear();
+            historyList.add("Couldn't get history");
         } finally {
             try {
-                reader.close();
-            } catch (IOException e) {
-                e.printStackTrace();
+                if(this.reader != null) reader.close();
+            }
+            catch (IOException e) {
+                System.out.println("Couldn't close file");
             }
         }
-
+        if(historyList.isEmpty()) historyList.add("There are no messages in history");
         return historyList;
     }
 }

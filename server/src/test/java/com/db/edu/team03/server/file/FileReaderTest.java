@@ -6,6 +6,8 @@ import org.junit.jupiter.api.function.Executable;
 import java.io.*;
 import java.util.ArrayList;
 
+import static org.junit.jupiter.api.Assertions.*;
+
 public class FileReaderTest {
     private File file;
 
@@ -24,7 +26,7 @@ public class FileReaderTest {
     public void shouldReadEmptyFile() {
         FileReader reader = new FileReader(file);
 
-        Assertions.assertEquals(new ArrayList<String>(), reader.read());
+        assertEquals("There are no messages in history", reader.read().get(0));
     }
 
     @Test
@@ -40,6 +42,22 @@ public class FileReaderTest {
 
         FileReader reader = new FileReader(file);
 
-        Assertions.assertTrue(reader.read().contains(writedString));
+        assertTrue(reader.read().contains(writedString));
+    }
+
+    @Test
+    public void shouldGetErrorWhenNoFile() {
+        String writedString = "something";
+        try (Writer writer = new BufferedWriter(new OutputStreamWriter(
+                new FileOutputStream(file), "utf-8"))) {
+            writer.write(writedString);
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        file.delete();
+        FileReader reader = new FileReader(file);
+        assertTrue(reader.read().contains("Couldn't get history"));
     }
 }
