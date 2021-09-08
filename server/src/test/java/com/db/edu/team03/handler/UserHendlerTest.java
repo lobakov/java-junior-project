@@ -25,7 +25,7 @@ public class UserHendlerTest {
     @Test
     public void shouldReturnNameFromId() {
         userHandler.accept(id);
-        assertTrue(userHandler.getNameById(id).equals(UserHandler.getDefaultUsername()));
+        assertTrue(userHandler.getNameById(id).contains(UserHandler.getDefaultUsername()));
     }
 
     @Test

@@ -1,5 +1,6 @@
 package com.db.edu.team03.server.core;
 
+import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
@@ -8,17 +9,22 @@ import java.util.concurrent.ConcurrentHashMap;
  */
 public class ClientHandlerMap {
     private final Map<String, ClientHandler> clients;
+    private Object monitor = new Object();
 
     public ClientHandlerMap() {
-        clients = new ConcurrentHashMap<>();
+        clients = new HashMap<>();
     }
 
     public void addClient(String adress, ClientHandler handler) {
-        clients.put(adress, handler);
+        synchronized(monitor){
+            clients.put(adress, handler);
+        }
     }
 
     public void removeClient(String adress) {
-        clients.remove(adress);
+        synchronized(monitor) {
+            clients.remove(adress);
+        }
     }
 
     public boolean checkClientExists(String adress) {
