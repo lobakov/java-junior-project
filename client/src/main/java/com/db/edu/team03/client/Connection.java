@@ -8,7 +8,7 @@ public class Connection {
     private DataInputStream input;
     private DataOutputStream output;
 
-    public Connection(DataInputStream input, DataOutputStream output) throws IOException {
+    public Connection(DataInputStream input, DataOutputStream output) {
         this.input = input;
         this.output = output;
     }

@@ -31,7 +31,6 @@ public class ServerThread extends Thread{
         } catch (IOException e) {
             System.out.println("Server disconnected.");
             isServerWorked = false;
-            return;
         }
     }
     private void printInvitation() {
