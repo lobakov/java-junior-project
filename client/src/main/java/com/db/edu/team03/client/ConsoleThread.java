@@ -26,7 +26,7 @@ public class ConsoleThread extends Thread {
                     System.out.println("Server unavailable, cannot send messages. Exiting.");
                 }
             }
-        }catch (IOException e){
+        } catch (IOException e){
             e.printStackTrace();
         }
     }
