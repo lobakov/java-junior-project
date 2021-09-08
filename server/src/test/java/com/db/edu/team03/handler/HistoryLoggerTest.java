@@ -1,12 +1,7 @@
 package com.db.edu.team03.handler;
 
-import com.db.edu.team03.server.core.ServerCore;
-import com.db.edu.team03.server.exception.ServerException;
 import com.db.edu.team03.server.handler.FileHandler;
 import com.db.edu.team03.server.handler.HistoryLogger;
-import com.db.edu.team03.server.handler.MessageHandler;
-import com.db.edu.team03.server.handler.UserHandler;
-import com.db.edu.team03.server.util.MessageFormatter;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
