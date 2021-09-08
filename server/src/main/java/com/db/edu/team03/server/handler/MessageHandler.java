@@ -87,8 +87,8 @@ public class MessageHandler {
     private void sendMessage(String name, String body) {
         String composeMessage = messageFormatter.format(name, body);
 
-        historyLogger.saveHistory(composeMessage);
         server.sendAll(composeMessage);
+        historyLogger.saveHistory(composeMessage);
     }
 
     private void changeName(String address, String name, String body) {
@@ -96,8 +96,8 @@ public class MessageHandler {
 
         if (resultOfSetName.equals(body)) {
             String nickChanged = name + NICK_CHANGED_MESSAGE + body;
-            historyLogger.saveHistory(nickChanged);
             server.sendAll(nickChanged);
+            historyLogger.saveHistory(nickChanged);
         } else {
             server.sendToUser(address, resultOfSetName);
         }
@@ -117,7 +117,6 @@ public class MessageHandler {
             }
             return joiner.toString();
         }
-
         return "";
     }
 }
