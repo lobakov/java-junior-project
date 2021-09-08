@@ -33,6 +33,7 @@ public class ConsoleThreadTest {
     public void shouldSendMessage() throws IOException {
         String message = "good message";
         assertTrue(thread.send(message));
+        verify(connectionMock, times(1)).sendMessage(message);
     }
 
     @Test
