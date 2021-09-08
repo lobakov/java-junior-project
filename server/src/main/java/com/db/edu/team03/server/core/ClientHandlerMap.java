@@ -15,13 +15,13 @@ public class ClientHandlerMap {
     }
 
     public void addClient(String adress, ClientHandler handler) {
-        synchronized(monitor){
+        synchronized (monitor) {
             clients.put(adress, handler);
         }
     }
 
     public void removeClient(String adress) {
-        synchronized(monitor) {
+        synchronized (monitor) {
             clients.remove(adress);
         }
     }
@@ -31,7 +31,7 @@ public class ClientHandlerMap {
     }
 
     public void sendMessageToClient(String adress, String message) {
-        synchronized(monitor) {
+        synchronized (monitor) {
             if (checkClientExists(adress)) {
                 clients.get(adress).sendMessageToClient(message);
             }
@@ -39,7 +39,7 @@ public class ClientHandlerMap {
     }
 
     public void sendMessageToAllClients(String message) {
-        synchronized(monitor) {
+        synchronized (monitor) {
             clients.forEach((k, v) -> sendMessageToClient(k, message));
         }
     }
