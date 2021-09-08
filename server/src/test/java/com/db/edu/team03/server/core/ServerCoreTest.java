@@ -1,13 +1,18 @@
-package com.db.edu.team03.core;
+package com.db.edu.team03.server.core;
 
-import com.db.edu.team03.server.core.ClientHandler;
-import com.db.edu.team03.server.core.ClientHandlerMap;
-import com.db.edu.team03.server.core.ServerCore;
+import com.db.edu.team03.SysoutCaptureAndAssertionAbility;
 import com.db.edu.team03.server.handler.MessageHandler;
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import java.io.IOException;
+import java.net.InetSocketAddress;
+import java.net.Socket;
+import java.net.SocketAddress;
 
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
 
@@ -18,6 +23,11 @@ public class ServerCoreTest {
     public void setUp() {
         serverCore = new ServerCore();
         serverCore.setMessageHandler(mock(MessageHandler.class));
+    }
+
+    @AfterEach
+    public void tearDown() {
+        ServerCore.getClientsHandlerMap().clear();
     }
 
     @Test
@@ -53,4 +63,27 @@ public class ServerCoreTest {
         serverCore.sendToUser("/127.0.0.1:99999:", "");
         verify(handler, times(0)).sendMessageToClient(any());
     }
+
+    @Test
+    public void shouldCreateNewClient() throws IOException {
+        Socket connection = mock(Socket.class);
+        SocketAddress address = new InetSocketAddress("localhost", 8080);
+        when(connection.getRemoteSocketAddress()).thenReturn(address);
+        serverCore.createNewClient(connection);
+        assertTrue(ServerCore.getClientsHandlerMap().isClientExists(address.toString()));
+    }
+
+//    @Test
+//    public void shouldStartNewThreadWithNewClient() throws IOException {
+//        ServerCore core = mock(ServerCore.class);
+//        ClientHandler handler = mock(ClientHandler.class);
+//        Socket connection = mock(Socket.class);
+//        SocketAddress address = new InetSocketAddress("localhost", 8080);
+//
+//        when(connection.getRemoteSocketAddress()).thenReturn(address);
+//        when(core.createNewClient(connection)).thenReturn(handler);
+//
+//        core.startClientHandlerThread(core.createNewClient(connection));
+//        verify(handler).run();
+//    }
 }

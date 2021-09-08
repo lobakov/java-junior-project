@@ -1,5 +1,6 @@
 package com.db.edu.team03.server.core;
 
+import com.db.edu.team03.server.exception.PortListeningException;
 import com.db.edu.team03.server.handler.MessageHandler;
 
 import java.io.*;
@@ -18,28 +19,30 @@ public class ServerCore {
         this.messageHandler = messageHandler;
     }
 
-    private ServerSocket serverSocket;
-
     /**
      * method that listen ports. Creates ClientHandler for every new connection
      */
-    public void listenPort() {
+    public void listenPort() throws PortListeningException {
         try (final ServerSocket listener = new ServerSocket(10_000)) {
-            System.out.println("Server started");
-            serverSocket = listener;
             Socket connection = listener.accept();
             while (connection != null)
             {
-                ClientHandler clientHandler = new ClientHandler(connection, messageHandler);
-                clients.addClient(connection.getRemoteSocketAddress().toString(), clientHandler);
-
-                new Thread(clientHandler).start();
-
+                startClientHandlerThread(createNewClient(connection));
                 connection = listener.accept();
             }
         } catch (IOException e) {
-            e.printStackTrace();
+            throw new PortListeningException();
         }
+    }
+
+    ClientHandler createNewClient(Socket connection) throws IOException {
+        ClientHandler clientHandler = new ClientHandler(connection, messageHandler);
+        clients.addClient(connection.getRemoteSocketAddress().toString(), clientHandler);
+        return clientHandler;
+    }
+
+    void startClientHandlerThread(ClientHandler clientHandler) {
+        new Thread(clientHandler).start();
     }
 
     /**
@@ -68,9 +71,5 @@ public class ServerCore {
      */
     public static ClientHandlerMap getClientsHandlerMap() {
         return clients;
-    }
-
-    public ServerSocket getServerSocket() {
-        return serverSocket;
     }
 }

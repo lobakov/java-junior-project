@@ -1,6 +1,7 @@
 package com.db.edu.team03;
 
 import com.db.edu.team03.server.core.ServerCore;
+import com.db.edu.team03.server.exception.PortListeningException;
 import com.db.edu.team03.server.file.FileReader;
 import com.db.edu.team03.server.file.FileWriter;
 import com.db.edu.team03.server.handler.*;
@@ -28,6 +29,10 @@ public class ServerApplication {
 
         MessageHandler messageHandler = new MessageHandler(server, historyLogger, userHandler, messageFormatter);
         server.setMessageHandler(messageHandler);
-        server.listenPort();
+        try {
+            server.listenPort();
+        } catch (PortListeningException e) {
+            System.out.println("Exception while listening port.");
+        }
     }
 }
