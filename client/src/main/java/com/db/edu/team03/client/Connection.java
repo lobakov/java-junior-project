@@ -4,17 +4,18 @@ import java.io.*;
 import java.net.Socket;
 
 public class Connection {
+
     private DataInputStream input;
     private DataOutputStream output;
 
-    public Connection(Socket socket) throws IOException {
+    public Connection(Socket socket, DataInputStream input, DataOutputStream output) throws IOException {
         final Socket connection = socket;
-        this.input = new DataInputStream(new BufferedInputStream(connection.getInputStream()));
-        this.output = new DataOutputStream(new BufferedOutputStream(connection.getOutputStream()));
+        this.input = input;
+        this.output = output;
     }
 
     public void sendMessage(String message) throws IOException {
-        output.writeUTF(message); // protocol
+        output.writeUTF(message);
         output.flush();
     }
 
