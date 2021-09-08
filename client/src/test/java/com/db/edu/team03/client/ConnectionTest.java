@@ -22,7 +22,7 @@ public class ConnectionTest {
         socket = mock(Socket.class);
         out = mock(DataOutputStream.class);
         in = mock(DataInputStream.class);
-        connection = new Connection(socket, in, out);
+        connection = new Connection(in, out);
     }
 
     @Test
