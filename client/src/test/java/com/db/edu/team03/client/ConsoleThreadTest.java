@@ -1,13 +1,13 @@
 package com.db.edu.team03.client;
 
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
-import java.io.ByteArrayOutputStream;
-import java.io.IOException;
-import java.io.PrintStream;
+import java.io.*;
 
 import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.*;
+
 public class ConsoleThreadTest {
 
     private final Connection connectionMock = mock(Connection.class);
@@ -20,7 +20,7 @@ public class ConsoleThreadTest {
 
     @Test
     public void shouldNotSendBigMessage() throws IOException {
-        String message = "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa";
+        String message = "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa";
         String outputMessage = "Your message longer than 150 symbols. Please, send shorter message.";
         ByteArrayOutputStream OUT = new ByteArrayOutputStream();
         OUT.reset();
@@ -32,6 +32,13 @@ public class ConsoleThreadTest {
     @Test
     public void shouldSendMessage() throws IOException {
         String message = "good message";
+        assertTrue(thread.send(message));
+        verify(connectionMock, times(1)).sendMessage(message);
+    }
+
+    @Test
+    public void shouldSend150LengthMessage() throws IOException {
+        String message = "123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890";
         assertTrue(thread.send(message));
     }
 }

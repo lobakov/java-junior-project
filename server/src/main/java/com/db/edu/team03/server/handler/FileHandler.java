@@ -3,7 +3,6 @@ package com.db.edu.team03.server.handler;
 import com.db.edu.team03.server.file.FileReader;
 import com.db.edu.team03.server.file.FileWriter;
 
-import java.io.File;
 import java.util.List;
 
 /**
@@ -16,6 +15,7 @@ public class FileHandler {
     private final FileWriter writer;
 
     public FileHandler(FileReader fileReader, FileWriter fileWriter) {
+        if (fileReader == null || fileWriter == null) throw new IllegalArgumentException();
 
         this.writer = fileWriter;
         this.reader = fileReader;

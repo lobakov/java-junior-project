@@ -10,6 +10,7 @@ public class FileWriter {
     private File file;
 
     public FileWriter(File file) {
+        if (file == null) throw new IllegalArgumentException();
         this.file = file;
     }
 
@@ -20,14 +21,13 @@ public class FileWriter {
                             new BufferedOutputStream(
                                     new FileOutputStream(file, true)), "windows-1251"));
             writer.append(message).append(System.lineSeparator());
-            writer.flush();
         } catch (IOException e) {
-            e.printStackTrace();
+            System.out.println("Couldn't save history");
         } finally {
             try {
                 writer.close();
             } catch (IOException e) {
-                e.printStackTrace();
+                System.out.println("Couldn't correctly close file");
             }
         }
     }
