@@ -1,7 +1,6 @@
 package com.db.edu.team03.client;
 
 import java.io.*;
-import java.net.Socket;
 
 public class Connection {
 
