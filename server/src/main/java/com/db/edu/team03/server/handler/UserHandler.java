@@ -12,14 +12,16 @@ public class UserHandler {
     private static final String DEFAULT_USERNAME = "user";
 
     private Map<String, String> users = new HashMap<>();
-
+    private Object monitor = new Object();
     /**
      * Associates new user with default user name by his address;
      *
      * @param address
      */
     public void accept(String address) {
-        users.putIfAbsent(address, DEFAULT_USERNAME);
+        synchronized(monitor){
+            users.putIfAbsent(address, DEFAULT_USERNAME);
+        }
     }
 
     /**
@@ -34,7 +36,9 @@ public class UserHandler {
         } else if (checkUniqueUsername(username)) {
             return "Server have this username yet. Use unique username";
         } else {
-            users.put(address, username);
+            synchronized(monitor){
+                users.put(address, username);
+            }
             return username;
         }
     }
@@ -61,7 +65,11 @@ public class UserHandler {
      * @return - returns name currently associated with address
      */
     public String getNameById(String address) {
-        return users.get(address);
+        String value;
+        synchronized(monitor){
+            value = users.get(address);
+            return value;
+        }
     }
 
     /**
@@ -70,7 +78,9 @@ public class UserHandler {
      * @param address - user's ip and port
      */
     public void removeUserByAddress(String address) {
-        users.remove(address);
+        synchronized(monitor){
+            users.remove(address);
+        }
     }
 
     public Map<String, String> getUsers() {

@@ -24,14 +24,15 @@ public class ServerCore {
     public void listenPort() {
         try (final ServerSocket listener = new ServerSocket(10_000)) {
             System.out.println("Server started");
-
-            for (Socket connection = listener.accept(); connection != null; connection = listener.accept()) {
+            Socket connection = listener.accept();
+            while (connection != null)
+            {
                 ClientHandler clientHandler = new ClientHandler(connection, messageHandler);
-
                 clients.addClient(connection.getRemoteSocketAddress().toString(), clientHandler);
 
                 new Thread(clientHandler).start();
 
+                connection = listener.accept();
             }
         } catch (IOException e) {
             e.printStackTrace();
