@@ -32,12 +32,16 @@ public class ClientHandlerMap {
     }
 
     public void sendMessageToClient(String adress, String message) {
-        if (checkClientExists(adress)) {
-            clients.get(adress).sendMessageToClient(message);
+        synchronized(monitor) {
+            if (checkClientExists(adress)) {
+                clients.get(adress).sendMessageToClient(message);
+            }
         }
     }
 
     public void sendMessageToAllClients(String message) {
-        clients.forEach((k, v) -> sendMessageToClient(k, message));
+        synchronized(monitor) {
+            clients.forEach((k, v) -> sendMessageToClient(k, message));
+        }
     }
 }

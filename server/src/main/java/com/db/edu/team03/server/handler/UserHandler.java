@@ -65,7 +65,11 @@ public class UserHandler {
      * @return - returns name currently associated with address
      */
     public String getNameById(String address) {
-        return users.get(address);
+        String value;
+        synchronized(monitor){
+            value = users.get(address);
+            return value;
+        }
     }
 
     /**
