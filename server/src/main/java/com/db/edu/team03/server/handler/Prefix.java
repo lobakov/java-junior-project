@@ -8,6 +8,17 @@ public enum Prefix {
 
     public final String value;
 
+    public static Prefix commandToPrefix(String command) {
+        Prefix result = null;
+        for (Prefix prefix: Prefix.values()) {
+            if (prefix.value.equals(command)) {
+                result = prefix;
+                break;
+            }
+        }
+        return result;
+    }
+
     Prefix(String value) {
         this.value = value;
     }

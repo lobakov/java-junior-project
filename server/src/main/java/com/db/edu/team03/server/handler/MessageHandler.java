@@ -59,29 +59,52 @@ public class MessageHandler {
         if (parsed.length > BODY_INDEX) {
             body = parseBody(parsed);
         }
-        String id = userHandler.getNameById(address);
+        String name = userHandler.getNameById(address);
+        Prefix prefix = Prefix.commandToPrefix(command);
 
-        if (command.equals(Prefix.SEND.value)) {
-            historyLogger.saveHistory(composeMessage(id, body));
-            server.sendAll(composeMessage(id, body));
-        } else if (command.equals(Prefix.CHID.value)) {
-            String resultOfSetName = userHandler.changeUsername(address, body);
-            if (resultOfSetName.equals(body)) {
-                String nickChanged = id + NICK_CHANGED_MESSAGE + body + NEW_LINE;
-                historyLogger.saveHistory(nickChanged);
-                server.sendAll(nickChanged);
-            } else {
-                server.sendToUser(address, resultOfSetName);
-            }
-        } else if (command.equals(Prefix.HIST.value)) {
-            server.sendToUser(address, historyLogger.readHistory());
-        } else if (command.equals(Prefix.CHROOM.value)) {
-            /////
-            /////
+        switch (prefix) {
+            case SEND:
+                sendMessage(name, body);
+                break;
+            case CHID:
+                changeName(address, name, body);
+                break;
+            case HIST:
+                sendHistory(address);
+                break;
+            default:
+                sendWrongMessageError(address);
+                break;
+        }
+    }
+
+    public void removeUserNickname(String adress) {
+        userHandler.removeUserByAddress(adress);
+    }
+
+    private void sendWrongMessageError(String address) {
+        String error = composeMessage(SERVER_NAME, WRONG_MESSAGE);
+        historyLogger.saveHistory(error);
+        server.sendToUser(address, error);
+    }
+
+    private void sendHistory(String address) {
+        server.sendToUser(address, historyLogger.readHistory());
+    }
+
+    private void sendMessage(String name, String body) {
+        historyLogger.saveHistory(composeMessage(name, body));
+        server.sendAll(composeMessage(name, body));
+    }
+
+    private void changeName(String address, String name, String body) {
+        String resultOfSetName = userHandler.changeUsername(address, body);
+        if (resultOfSetName.equals(body)) {
+            String nickChanged = name + NICK_CHANGED_MESSAGE + body + NEW_LINE;
+            historyLogger.saveHistory(nickChanged);
+            server.sendAll(nickChanged);
         } else {
-            String error = composeMessage(SERVER_NAME, WRONG_MESSAGE);
-            historyLogger.saveHistory(error);
-            server.sendToUser(address, error);
+            server.sendToUser(address, resultOfSetName);
         }
     }
 
@@ -91,10 +114,6 @@ public class MessageHandler {
             joiner.add(parsed[i]);
         }
         return joiner.toString();
-    }
-
-    public void removeUserNickname(String adress) {
-        userHandler.removeUserByAddress(adress);
     }
 
     private String composeMessage(String id, String message) {
