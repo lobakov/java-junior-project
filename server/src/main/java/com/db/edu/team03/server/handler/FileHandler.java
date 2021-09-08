@@ -16,6 +16,7 @@ public class FileHandler {
     private final FileWriter writer;
 
     public FileHandler(FileReader fileReader, FileWriter fileWriter) {
+        if (fileReader == null || fileWriter == null) throw new IllegalArgumentException();
 
         this.writer = fileWriter;
         this.reader = fileReader;

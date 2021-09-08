@@ -10,6 +10,7 @@ public class FileWriter {
     private File file;
 
     public FileWriter(File file) {
+        if (file == null) throw new IllegalArgumentException();
         this.file = file;
     }
 
