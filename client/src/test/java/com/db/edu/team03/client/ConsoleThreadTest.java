@@ -1,6 +1,5 @@
 package com.db.edu.team03.client;
 
-import org.junit.jupiter.api.Assertions.*;
 import org.junit.jupiter.api.Test;
 
 import java.io.ByteArrayOutputStream;
