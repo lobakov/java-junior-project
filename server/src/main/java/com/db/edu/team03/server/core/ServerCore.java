@@ -18,12 +18,15 @@ public class ServerCore {
         this.messageHandler = messageHandler;
     }
 
+    private ServerSocket serverSocket;
+
     /**
      * method that listen ports. Creates ClientHandler for every new connection
      */
     public void listenPort() {
         try (final ServerSocket listener = new ServerSocket(10_000)) {
             System.out.println("Server started");
+            serverSocket = listener;
             Socket connection = listener.accept();
             while (connection != null)
             {
@@ -65,5 +68,9 @@ public class ServerCore {
      */
     public static ClientHandlerMap getClientsHandlerMap() {
         return clients;
+    }
+
+    public ServerSocket getServerSocket() {
+        return serverSocket;
     }
 }
