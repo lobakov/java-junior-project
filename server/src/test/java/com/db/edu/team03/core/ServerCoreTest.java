@@ -7,9 +7,6 @@ import com.db.edu.team03.server.handler.MessageHandler;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import java.io.IOException;
-import java.net.ServerSocket;
-import java.net.Socket;
 
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
@@ -56,23 +53,4 @@ public class ServerCoreTest {
         serverCore.sendToUser("/127.0.0.1:99999:", "");
         verify(handler, times(0)).sendMessageToClient(any());
     }
-/*
-    @Test
-    public void shouldCheckListenerAccept() {
-        serverCore.listenPort();
-        ServerSocket connection = serverCore.getServerSocket();
-
-        ClientHandler handler = mock(ClientHandler.class);
-
-        ClientHandlerMap clients = ServerCore.getClientsHandlerMap();
-        clients.addClient("/127.0.0.1:60158:", handler);
-
-        serverCore.sendToUser("/127.0.0.1:99999:", "");
-
-        try {
-            verify(connection).accept();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }*/
 }
