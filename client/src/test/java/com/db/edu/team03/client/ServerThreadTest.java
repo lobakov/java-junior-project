@@ -31,11 +31,26 @@ public class ServerThreadTest {
     }
 
     @Test
-    void shouldReceiveMessages() throws IOException, InterruptedException {
+    void shouldReceiveMessages() throws IOException {
         when(connection.receiveMessage()).thenReturn(message);
 
         serverThread.printMessage();
 
         assertEquals(expected, outputStreamCaptor.toString().trim());
+    }
+
+    @Test
+    void shouldCatchIOException() throws IOException {
+        when(connection.receiveMessage()).thenThrow(IOException.class);
+
+        serverThread.printMessage();
+
+        assertEquals("Server disconnected.", outputStreamCaptor.toString().trim());
+    }
+
+    @Test
+    void shouldPrintIntroMessage() {
+        ServerThread serverThreadTest = new ServerThread(connection);
+        assertEquals("Welcome to team03 chat." + System.lineSeparator() + ">", outputStreamCaptor.toString().trim());
     }
 }
