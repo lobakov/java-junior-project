@@ -1,4 +1,4 @@
-package com.db.edu.team03.handler;
+package com.db.edu.team03.handler.messagehandler;
 
 import com.db.edu.team03.server.core.ServerCore;
 import com.db.edu.team03.server.exception.ServerException;
@@ -10,7 +10,7 @@ import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.Mockito.*;
 
-public class MessageHandlerTest {
+public class MessageHandlerExceptionTest {
 
     private ServerCore serverStub;
     private MessageHandler handlerSut;
@@ -18,7 +18,10 @@ public class MessageHandlerTest {
     @BeforeEach
     public void setUp() {
         serverStub = mock(ServerCore.class);
-        handlerSut = new MessageHandler(serverStub);
+
+        HistoryLogger historyLogger = mock(HistoryLogger.class);
+        UserHandler userHandler = mock(UserHandler.class);
+        handlerSut = new MessageHandler(serverStub, historyLogger, userHandler);
     }
 
     @Test

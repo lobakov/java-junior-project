@@ -12,23 +12,13 @@ import java.util.List;
  */
 public class FileHandler {
 
-    private static final String HOME = System.getProperty("user.home");
-    private static final String DEFAULT_FILENAME = HOME + "/team03-chat-history.log";
-
     private final FileReader reader;
     private final FileWriter writer;
 
-    public FileHandler() {
-        File file = new File(DEFAULT_FILENAME);
+    public FileHandler(FileReader fileReader, FileWriter fileWriter) {
 
-        this.writer = new FileWriter(file);
-        this.reader = new FileReader(file);
-    }
-
-    public FileHandler(File file) {
-
-        this.writer = new FileWriter(file);
-        this.reader = new FileReader(file);
+        this.writer = fileWriter;
+        this.reader = fileReader;
     }
 
     public List<String> readHistory() {
@@ -39,11 +29,5 @@ public class FileHandler {
         writer.write(message);
     }
 
-    public FileReader getReader() {
-        return reader;
-    }
 
-    public FileWriter getWriter() {
-        return writer;
-    }
 }

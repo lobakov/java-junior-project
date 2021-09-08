@@ -17,18 +17,15 @@ public class MessageHandler {
     private static final String SERVER_NAME = "Server";
     private static final String WRONG_MESSAGE = "Unrecognized message";
 
-    private static final int COMMAND_INDEX = 0;
-    private static final int BODY_INDEX = 1;
-
     private final UserHandler userHandler;
     private final ServerCore server;
     private final HistoryLogger historyLogger;
     private final MessageFormatter messageFormatter;
 
-    public MessageHandler(ServerCore server) {
+    public MessageHandler(ServerCore server, HistoryLogger historyLogger, UserHandler userHandler) {
         this.server = server;
-        this.userHandler = new UserHandler();
-        this.historyLogger = new HistoryLogger(new FileHandler());
+        this.userHandler = userHandler;
+        this.historyLogger = historyLogger;
         this.messageFormatter = new MessageFormatter();
     }
 
@@ -51,15 +48,10 @@ public class MessageHandler {
     }
 
     private void parse(String address, String message) {
-        String[] parsed = message.split(DELIMITER);
-        String command = parsed[COMMAND_INDEX];
-        String body = "";
+        Prefix prefix = parsePrefix(message);
+        String body = parseBody(message);
 
-        if (parsed.length > BODY_INDEX) {
-            body = parseBody(parsed);
-        }
         String name = userHandler.getNameById(address);
-        Prefix prefix = Prefix.commandToPrefix(command);
 
         switch (prefix) {
             case SEND:
@@ -111,15 +103,21 @@ public class MessageHandler {
         }
     }
 
-    private String parsePrefix(String message){
-        return message.split(" ")[0];
+    private Prefix parsePrefix(String message){
+        return Prefix.commandToPrefix(message.split(DELIMITER)[0]);
     }
 
-    private String parseBody(String[] parsed) {
-        StringJoiner joiner = new StringJoiner(DELIMITER);
-        for (int i = 1; i < parsed.length; i++) {
-            joiner.add(parsed[i]);
+    private String parseBody(String message) {
+        String[] parsed = message.split(DELIMITER);
+
+        if (parsed.length > 1) {
+            StringJoiner joiner = new StringJoiner(DELIMITER);
+            for (int i = 1; i < parsed.length; i++) {
+                joiner.add(parsed[i]);
+            }
+            return joiner.toString();
         }
-        return joiner.toString();
+
+        return "";
     }
 }
