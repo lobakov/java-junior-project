@@ -20,17 +20,20 @@ public class ServerThread extends Thread{
     @Override
     public void run(){
         while (!this.isInterrupted()) {
-            try {
-                System.out.println(connection.receiveMessage());
-                printInvitation();
-            } catch (IOException e) {
-                System.out.println("Server disconnected.");
-                isServerWorked = false;
-                return;
-            }
+            printMessage();
         }
     }
 
+    void printMessage() {
+        try {
+            System.out.println(connection.receiveMessage());
+            printInvitation();
+        } catch (IOException e) {
+            System.out.println("Server disconnected.");
+            isServerWorked = false;
+            return;
+        }
+    }
     private void printInvitation() {
         System.out.print("> ");
     }

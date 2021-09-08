@@ -5,9 +5,19 @@ import java.net.Socket;
 
 public class Client {
 
+    private static final String HOST = "localhost";
+    private static final int PORT = 10_000;
+
     public static void main(String[] args) {
+        Socket socket;
+        DataOutputStream dos;
+        DataInputStream dis;
+
         try {
-            Connection connection = new Connection(new Socket("localhost", 10_000));
+            socket = new Socket(HOST, PORT);
+            dis = new DataInputStream(new BufferedInputStream(socket.getInputStream()));
+            dos = new DataOutputStream(new BufferedOutputStream(socket.getOutputStream()));
+            Connection connection = new Connection(socket, dis, dos);
 
             ServerThread serverThread = new ServerThread(connection);
             serverThread.start();
