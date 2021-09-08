@@ -4,6 +4,7 @@ import com.db.edu.team03.server.core.ServerCore;
 import com.db.edu.team03.server.file.FileReader;
 import com.db.edu.team03.server.file.FileWriter;
 import com.db.edu.team03.server.handler.*;
+import com.db.edu.team03.server.util.MessageFormatter;
 
 import java.io.File;
 
@@ -23,8 +24,9 @@ public class ServerApplication {
 
         HistoryLogger historyLogger = new HistoryLogger(fileHandler);
         UserHandler userHandler = new UserHandler();
+        MessageFormatter messageFormatter = new MessageFormatter();
 
-        MessageHandler messageHandler = new MessageHandler(server, historyLogger, userHandler);
+        MessageHandler messageHandler = new MessageHandler(server, historyLogger, userHandler, messageFormatter);
         server.setMessageHandler(messageHandler);
         server.listenPort();
     }

@@ -19,9 +19,7 @@ public class MessageHandlerExceptionTest {
     public void setUp() {
         serverStub = mock(ServerCore.class);
 
-        HistoryLogger historyLogger = mock(HistoryLogger.class);
-        UserHandler userHandler = mock(UserHandler.class);
-        handlerSut = new MessageHandler(serverStub, historyLogger, userHandler);
+        handlerSut = new MessageHandler(serverStub, mock(HistoryLogger.class), mock(UserHandler.class), mock(MessageFormatter.class));
     }
 
     @Test

@@ -3,14 +3,19 @@ package com.db.edu.team03.server.file;
 import org.junit.jupiter.api.*;
 
 import java.io.*;
+import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.util.stream.Stream;
 
-@Disabled
 public class FileWriterTest {
+    private final String FILE_PATH = "TestLog.log";
+
     private File file;
 
     @BeforeEach
     void setup() throws IOException {
-        file = new File("TestLog.log");
+        file = new File(FILE_PATH);
         file.createNewFile();
     }
 
@@ -24,10 +29,9 @@ public class FileWriterTest {
         String writedString = "something";
 
         FileWriter writer = new FileWriter(file);
-        InputStream inputStream = new FileInputStream(file);
 
         writer.write(writedString);
 
-//        Assertions.assertEquals(new String(inputStream.readAllBytes()), writedString + System.lineSeparator());
+        Assertions.assertEquals(new String(Files.readAllBytes(Paths.get(FILE_PATH))), writedString + System.lineSeparator());
     }
 }

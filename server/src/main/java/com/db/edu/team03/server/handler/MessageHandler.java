@@ -22,11 +22,11 @@ public class MessageHandler {
     private final HistoryLogger historyLogger;
     private final MessageFormatter messageFormatter;
 
-    public MessageHandler(ServerCore server, HistoryLogger historyLogger, UserHandler userHandler) {
+    public MessageHandler(ServerCore server, HistoryLogger historyLogger, UserHandler userHandler, MessageFormatter messageFormatter) {
         this.server = server;
         this.userHandler = userHandler;
         this.historyLogger = historyLogger;
-        this.messageFormatter = new MessageFormatter();
+        this.messageFormatter = messageFormatter;
     }
 
     /**

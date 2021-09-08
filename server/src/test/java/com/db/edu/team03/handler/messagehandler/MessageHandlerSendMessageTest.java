@@ -26,9 +26,11 @@ public class MessageHandlerSendMessageTest {
         serverStub = mock(ServerCore.class);
         userHandler = mock(UserHandler.class);
 
-        handlerSut = new MessageHandler(serverStub, mock(HistoryLogger.class), userHandler);
-
         messageFormatter = new MessageFormatter();
+
+
+        handlerSut = new MessageHandler(serverStub, mock(HistoryLogger.class), userHandler, messageFormatter);
+
         when(userHandler.getNameById(any())).thenReturn("user");
     }
 

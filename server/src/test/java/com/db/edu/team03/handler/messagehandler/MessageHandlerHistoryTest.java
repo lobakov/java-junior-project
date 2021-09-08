@@ -28,10 +28,11 @@ public class MessageHandlerHistoryTest {
         serverStub = mock(ServerCore.class);
         userHandler = mock(UserHandler.class);
         historyLogger = mock(HistoryLogger.class);
-
-        handlerSut = new MessageHandler(serverStub, historyLogger, userHandler);
-
         messageFormatter = new MessageFormatter();
+
+
+        handlerSut = new MessageHandler(serverStub, historyLogger, userHandler, messageFormatter);
+
         when(userHandler.getNameById(any())).thenReturn("user");
     }
 

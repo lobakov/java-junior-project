@@ -1,11 +1,11 @@
 package com.db.edu.team03.server.file;
 
 import org.junit.jupiter.api.*;
+import org.junit.jupiter.api.function.Executable;
 
 import java.io.*;
 import java.util.ArrayList;
 
-@Disabled
 public class FileReaderTest {
     private File file;
 
